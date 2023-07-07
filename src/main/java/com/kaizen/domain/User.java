@@ -27,5 +27,5 @@ public class User {
 
     @Column
     @NotNull
-    private String birgade;
+    private int birgade;
 }
