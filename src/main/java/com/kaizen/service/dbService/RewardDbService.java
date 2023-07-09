@@ -48,4 +48,8 @@ public class RewardDbService {
         return rewardRepository.getRewardsLessExpensiveThan(price);
     }
 
+    public List<Reward> getRewardsByName (final String name) throws RewardNotFoundException {
+        return rewardRepository.findByNameContaining(name);
+    }
+
 }

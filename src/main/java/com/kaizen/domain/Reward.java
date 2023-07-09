@@ -19,8 +19,7 @@ import java.util.List;
         @NamedQuery(
                 name = "Reward.getRewardsLessExpensiveThan",
                 query = "SELECT r FROM Reward r WHERE r.rewardId <= :price"
-        ),
-
+        )
 })
 @Entity
 @Getter

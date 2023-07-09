@@ -28,6 +28,12 @@ public class RewardController {
         return ResponseEntity.ok(rewardMapper.mapToRewardDto(rewardDbService.getReward(rewardId)));
     }
 
+    @GetMapping(value = "/rewardName/{name}")
+    public ResponseEntity<List<RewardDto>> getRewardsByName(@PathVariable String name) throws RewardNotFoundException {
+        List<Reward> rewards = rewardDbService.getRewardsByName(name);
+        return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
+    }
+
     @GetMapping(value = "/rewardsPrice/{price}")
     public ResponseEntity<List<RewardDto>> getRewardsByPrice(@PathVariable int price) throws RewardNotFoundException {
         List<Reward> rewards = rewardDbService.rewardListByPrice(price);

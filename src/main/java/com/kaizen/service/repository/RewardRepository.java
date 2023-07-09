@@ -27,4 +27,6 @@ public interface RewardRepository extends CrudRepository<Reward, Integer> {
 
     @Query
     List<Reward> getRewardsLessExpensiveThan(@Param("price") int price);
+
+    List<Reward> findByNameContaining (final String name);
 }
