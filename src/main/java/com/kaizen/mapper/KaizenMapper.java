@@ -1,5 +1,6 @@
 package com.kaizen.mapper;
 
+import com.kaizen.controller.exception.RewardNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.dto.KaizenDto;
@@ -34,7 +35,7 @@ public class KaizenMapper {
         );
     }
 
-    public Kaizen mapToKaizen(final KaizenDto kaizenDto) {
+    public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws RewardNotFoundException {
         return new Kaizen(
                 kaizenDto.getKaizenId(),
                 kaizenDto.getFillingDate(),

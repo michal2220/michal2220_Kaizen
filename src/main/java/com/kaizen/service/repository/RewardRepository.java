@@ -15,4 +15,8 @@ public interface RewardRepository extends CrudRepository<Reward, Integer> {
     Reward findByRewardId(final int rewardId);
 
     List<Reward> findAll();
+
+    List<Reward> findByPrice(final int price);
+
+    void deleteByRewardId(final int rewardId);
 }
