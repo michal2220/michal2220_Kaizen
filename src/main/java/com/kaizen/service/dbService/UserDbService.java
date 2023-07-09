@@ -1,13 +1,19 @@
 package com.kaizen.service.dbService;
 
 import com.kaizen.domain.User;
-import jakarta.transaction.Transactional;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import com.kaizen.service.repository.UserRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Transactional
-@Repository
-public interface UserDbService extends CrudRepository<User, Integer> {
+@Service
+@Data
+@RequiredArgsConstructor
+public class UserDbService {
 
+    private final UserRepository userRepository;
 
+    public User getUser (final int userId) {
+        return userRepository.findByUserId(userId);
+    }
 }

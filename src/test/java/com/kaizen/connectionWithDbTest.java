@@ -3,9 +3,9 @@ package com.kaizen;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.User;
-import com.kaizen.service.dbService.KaizenDbService;
-import com.kaizen.service.dbService.RewardDbService;
-import com.kaizen.service.dbService.UserDbService;
+import com.kaizen.service.repository.KaizenRepository;
+import com.kaizen.service.repository.RewardRepository;
+import com.kaizen.service.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,34 +18,31 @@ import static org.junit.jupiter.api.Assertions.*;
 public class connectionWithDbTest {
 
     @Autowired
-    private KaizenDbService kaizenDbService;
+    private KaizenRepository kaizenRepository;
 
     @Autowired
-    private UserDbService userDbService;
+    private UserRepository userRepository;
 
     @Autowired
-    private RewardDbService rewardDbService;
+    private RewardRepository rewardRepository;
 
 
     @Test
     public void creatingKaizenTest() {
         //Given
-        Kaizen kaizen = new Kaizen();
-        kaizen.setFillingDate(LocalDate.now());
-        kaizen.setCompleted(false);
-        kaizen.setProblem("Problem with lack of storage space on enrober");
-        kaizen.setSolution("Create storage space by welding shelf to machine");
-        kaizen.setRewarded(false);
-
+        Kaizen kaizen = new Kaizen(LocalDate.now(), false,
+                "Problem with lack of storage space on enrober",
+                "Create storage space by welding shelf to machine",
+                false);
         //When
-        kaizenDbService.save(kaizen);
+        kaizenRepository.save(kaizen);
 
         //Then
-        assertTrue(kaizenDbService.existsById(kaizen.getKaizenId()));
+        assertTrue(kaizenRepository.existsById(kaizen.getKaizenId()));
 
         //CleanUp
-        kaizenDbService.deleteById(kaizen.getKaizenId());
-        assertFalse(kaizenDbService.existsById(kaizen.getKaizenId()));
+        kaizenRepository.deleteById(kaizen.getKaizenId());
+        assertFalse(kaizenRepository.existsById(kaizen.getKaizenId()));
     }
 
 
@@ -55,35 +52,33 @@ public class connectionWithDbTest {
         User user = new User();
         user.setName("Krystyna");
         user.setLastname("Czubowna");
-        user.setBirgade(4);
+        user.setBrigade(4);
 
         //When
-        userDbService.save(user);
+        userRepository.save(user);
 
         //Then
-        assertTrue(userDbService.existsById(user.getUserId()));
+        assertTrue(userRepository.existsById(user.getUserId()));
 
         //CleanUp
-        userDbService.deleteById(user.getUserId());
-        assertFalse(userDbService.existsById(user.getUserId()));
+        userRepository.deleteById(user.getUserId());
+        assertFalse(userRepository.existsById(user.getUserId()));
     }
 
     @Test
     public void creatingRewardTest() {
         //Given
-        Reward reward = new Reward();
-        reward.setName("Shopping coupon");
-        reward.setPrice(100);
+        Reward reward = new Reward("Shopping coupon", 100);
 
         //When
-        rewardDbService.save(reward);
+        rewardRepository.save(reward);
 
         //Then
-        assertTrue(rewardDbService.existsById(reward.getRewardId()));
+        assertTrue(rewardRepository.existsById(reward.getRewardId()));
 
         //CleanUp
-        rewardDbService.deleteById(reward.getRewardId());
-        assertFalse(rewardDbService.existsById(reward.getRewardId()));
+        rewardRepository.deleteById(reward.getRewardId());
+        assertFalse(rewardRepository.existsById(reward.getRewardId()));
     }
 
 
@@ -93,52 +88,46 @@ public class connectionWithDbTest {
         User user = new User();
         user.setName("Krystyna");
         user.setLastname("Czubowna");
-        user.setBirgade(4);
+        user.setBrigade(4);
 
-        userDbService.save(user);
+        userRepository.save(user);
 
-        Kaizen kaizen = new Kaizen();
-        kaizen.setFillingDate(LocalDate.now());
-        kaizen.setCompleted(false);
-        kaizen.setProblem("Problem with lack of storage space on enrober");
-        kaizen.setSolution("Create storage space by welding shelf to machine");
-        kaizen.setRewarded(false);
+        Kaizen kaizen = new Kaizen(LocalDate.now(), false,
+                "Problem with lack of storage space on enrober",
+                "Create storage space by welding shelf to machine",
+                false);
 
-        kaizenDbService.save(kaizen);
+        kaizenRepository.save(kaizen);
 
         //When
         user.getKaizen().add(kaizen);
         kaizen.setUser(user);
 
-        kaizenDbService.save(kaizen);
-        userDbService.save(user);
+        kaizenRepository.save(kaizen);
+        userRepository.save(user);
 
         //Then
         assertNotNull(kaizen.getUser());
         assertNotNull(user.getKaizen());
 
         //CleanUp
-        kaizenDbService.deleteById(kaizen.getKaizenId());
-        userDbService.deleteById(user.getUserId());
+        kaizenRepository.deleteById(kaizen.getKaizenId());
+        userRepository.deleteById(user.getUserId());
     }
 
     @Test
     public void relationRewardKaizenTest() {
         //Given
-        Kaizen kaizen = new Kaizen();
-        kaizen.setFillingDate(LocalDate.now());
-        kaizen.setCompleted(false);
-        kaizen.setProblem("Problem with lack of storage space on enrober");
-        kaizen.setSolution("Create storage space by welding shelf to machine");
-        kaizen.setRewarded(false);
+        Kaizen kaizen = new Kaizen(LocalDate.now(), false,
+                "Problem with lack of storage space on enrober",
+                "Create storage space by welding shelf to machine",
+                false);
 
-        kaizenDbService.save(kaizen);
+        kaizenRepository.save(kaizen);
 
-        Reward reward = new Reward();
-        reward.setName("Shopping coupon");
-        reward.setPrice(100);
+        Reward reward = new Reward("Shopping coupon", 100);
 
-        rewardDbService.save(reward);
+        rewardRepository.save(reward);
 
         //When
         reward.setKaizen(kaizen);
@@ -149,9 +138,9 @@ public class connectionWithDbTest {
         assertNotNull(reward.getKaizen());
 
         //CleanUp
-        kaizenDbService.deleteById(kaizen.getKaizenId());
-        rewardDbService.deleteById(reward.getRewardId());
-        assertFalse(kaizenDbService.existsById(kaizen.getKaizenId()));
-        assertFalse(rewardDbService.existsById(reward.getRewardId()));
+        kaizenRepository.deleteById(kaizen.getKaizenId());
+        rewardRepository.deleteById(reward.getRewardId());
+        assertFalse(kaizenRepository.existsById(kaizen.getKaizenId()));
+        assertFalse(rewardRepository.existsById(reward.getRewardId()));
     }
 }

@@ -1,13 +1,20 @@
 package com.kaizen.service.dbService;
 
-import com.kaizen.domain.Kaizen;
+
 import com.kaizen.domain.Reward;
-import jakarta.transaction.Transactional;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import com.kaizen.service.repository.KaizenRepository;
+import com.kaizen.service.repository.RewardRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Transactional
-@Repository
-public interface RewardDbService extends CrudRepository<Reward, Integer> {
+@Service
+@Data
+@RequiredArgsConstructor
+public class RewardDbService {
+    private final RewardRepository rewardRepository;
 
+    public Reward getReward (final int rewardId) {
+        return rewardRepository.findByRewardId(rewardId);
+    }
 }

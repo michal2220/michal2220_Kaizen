@@ -1,12 +1,24 @@
 package com.kaizen.service.dbService;
 
 import com.kaizen.domain.Kaizen;
-import jakarta.transaction.Transactional;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import com.kaizen.service.repository.KaizenRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Transactional
-@Repository
-public interface KaizenDbService extends CrudRepository<Kaizen, Integer> {
+import java.util.List;
 
+@Service
+@Data
+@RequiredArgsConstructor
+public class KaizenDbService {
+    private final KaizenRepository kaizenRepository;
+
+    public Kaizen getKaizen(final int kaizenId){
+        return kaizenRepository.findByKaizenId(kaizenId);
+    }
+
+    public List<Kaizen> getAllKaizens() {
+        return kaizenRepository.findAll();
+    }
 }

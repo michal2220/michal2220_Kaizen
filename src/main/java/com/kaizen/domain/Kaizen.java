@@ -3,12 +3,14 @@ package com.kaizen.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Kaizen {
 
     @Id
@@ -43,4 +45,28 @@ public class Kaizen {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "reward_id")
     private Reward reward;
+
+    public Kaizen(int kaizenId, LocalDate fillingDate,
+                  boolean completed, LocalDate completionDate,
+                  String problem, String solution, boolean rewarded,
+                  User user, Reward reward) {
+        this.kaizenId = kaizenId;
+        this.fillingDate = fillingDate;
+        this.completed = completed;
+        this.completionDate = completionDate;
+        this.problem = problem;
+        this.solution = solution;
+        this.rewarded = rewarded;
+        this.user = user;
+        this.reward = reward;
+    }
+
+
+    public Kaizen(LocalDate fillingDate, boolean completed, String problem, String solution, boolean rewarded) {
+        this.fillingDate = fillingDate;
+        this.completed = completed;
+        this.problem = problem;
+        this.solution = solution;
+        this.rewarded = rewarded;
+    }
 }
