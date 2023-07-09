@@ -9,5 +9,4 @@ class KaizenApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

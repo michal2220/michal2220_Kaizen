@@ -33,6 +33,7 @@ public class User {
     @NotNull
     private int brigade;
 
+
     @OneToMany(
             targetEntity = Kaizen.class,
             mappedBy = "user",
@@ -40,7 +41,6 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Kaizen> kaizen = new ArrayList<>();
-
     public User(int userId, String name, String lastname, int brigade, List<Kaizen> kaizen) {
         this.userId = userId;
         this.name = name;

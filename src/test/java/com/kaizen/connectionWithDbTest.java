@@ -49,10 +49,7 @@ public class connectionWithDbTest {
     @Test
     public void creatingUserTest() {
         //Given
-        User user = new User();
-        user.setName("Krystyna");
-        user.setLastname("Czubowna");
-        user.setBrigade(4);
+        User user = new User("Krystyna", "Czubowna", 4);
 
         //When
         userRepository.save(user);
@@ -85,10 +82,7 @@ public class connectionWithDbTest {
     @Test
     public void relationKaidenUserTest() {
         //Given
-        User user = new User();
-        user.setName("Krystyna");
-        user.setLastname("Czubowna");
-        user.setBrigade(4);
+        User user = new User("Krystyna", "Czubowna", 4);
 
         userRepository.save(user);
 
@@ -143,4 +137,17 @@ public class connectionWithDbTest {
         assertFalse(kaizenRepository.existsById(kaizen.getKaizenId()));
         assertFalse(rewardRepository.existsById(reward.getRewardId()));
     }
+
+/*    @Test
+    public void cleanAllTablesTest() {
+        //Given & When
+        kaizenRepository.deleteAll();
+        userRepository.deleteAll();
+        rewardRepository.deleteAll();
+
+        //Then
+        assertEquals(0, kaizenRepository.findAll().size());
+        assertEquals(0, userRepository.findAll().size());
+        assertEquals(0, rewardRepository.findAll().size());
+    }*/
 }

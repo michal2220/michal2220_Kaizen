@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Data
 @RequiredArgsConstructor
@@ -15,5 +17,9 @@ public class UserDbService {
 
     public User getUser (final int userId) {
         return userRepository.findByUserId(userId);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
