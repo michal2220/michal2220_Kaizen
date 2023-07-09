@@ -47,4 +47,5 @@ public class RewardDbService {
     public List<Reward> getRewardsLessExpensiveThen(final int price) throws RewardNotFoundException {
         return rewardRepository.getRewardsLessExpensiveThan(price);
     }
+
 }

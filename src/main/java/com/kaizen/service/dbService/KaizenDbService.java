@@ -26,4 +26,8 @@ public class KaizenDbService {
     public List<Kaizen> getKaizenByUser(int userId) {
         return kaizenRepository.findKaizenByUserUserId(userId);
     }
+
+    public List<Kaizen> getKaizenByReward(int rewardId) {
+        return kaizenRepository.findKaizenByRewardRewardId(rewardId);
+    }
 }

@@ -17,4 +17,6 @@ public interface KaizenRepository extends CrudRepository<Kaizen, Integer> {
     List<Kaizen> findAll();
 
     List<Kaizen> findKaizenByUserUserId(int userId);
+
+    List<Kaizen> findKaizenByRewardRewardId(int rewardId);
 }

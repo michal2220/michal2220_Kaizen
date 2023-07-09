@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @NamedQueries({
         @NamedQuery(
                 name = "Reward.getRewardsMoreExpensiveThan",
@@ -37,11 +39,15 @@ public class Reward {
     @NotNull
     private int price;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "kaizen_id")
-    private Kaizen kaizen;
+    @OneToMany(
+            targetEntity = Kaizen.class,
+            mappedBy = "reward",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Kaizen> kaizen;
 
-    public Reward(int rewardId, String name, int price, Kaizen kaizen) {
+    public Reward(int rewardId, String name, int price, List<Kaizen> kaizen) {
         this.rewardId = rewardId;
         this.name = name;
         this.price = price;

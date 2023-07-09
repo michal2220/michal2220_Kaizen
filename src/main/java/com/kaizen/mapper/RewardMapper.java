@@ -1,10 +1,12 @@
 package com.kaizen.mapper;
 
+import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.dto.RewardDto;
 import com.kaizen.service.dbService.KaizenDbService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RewardMapper {
 
+    @Autowired
     private KaizenDbService kaizenDbService;
 
     public RewardDto mapToRewardDto(final Reward reward) {
@@ -21,7 +24,7 @@ public class RewardMapper {
                 reward.getRewardId(),
                 reward.getName(),
                 reward.getPrice(),
-                reward.getKaizen().getKaizenId()
+                reward.getKaizen().stream().map(Kaizen::getKaizenId).collect(Collectors.toList())
         );
     }
 
@@ -30,7 +33,7 @@ public class RewardMapper {
                 rewardDto.getRewardId(),
                 rewardDto.getName(),
                 rewardDto.getPrice(),
-                kaizenDbService.getKaizen(rewardDto.getKaizenId())
+                kaizenDbService.getKaizenByReward(rewardDto.getRewardId())
         );
     }
 

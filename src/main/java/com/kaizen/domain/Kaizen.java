@@ -42,7 +42,7 @@ public class Kaizen {
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "reward_id")
     private Reward reward;
 
