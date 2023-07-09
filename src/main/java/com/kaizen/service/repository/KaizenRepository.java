@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Transactional
@@ -19,4 +20,8 @@ public interface KaizenRepository extends CrudRepository<Kaizen, Integer> {
     List<Kaizen> findKaizenByUserUserId(int userId);
 
     List<Kaizen> findKaizenByRewardRewardId(int rewardId);
+
+    List<Kaizen> findKaizenByFillingDateBefore(LocalDate date);
+
+    List<Kaizen> findKaizenByUserNameAndUserLastname(String name, String lastname);
 }

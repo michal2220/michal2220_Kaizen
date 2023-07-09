@@ -39,13 +39,6 @@ public class RewardController {
         List<Reward> rewards = rewardDbService.rewardListByPrice(price);
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
-
-    @GetMapping
-    public ResponseEntity<List<RewardDto>> getAllRewards() {
-        List<Reward> rewards = rewardDbService.getAllRewards();
-        return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
-    }
-
     @GetMapping(value = "/moreExpensiveThen/{price}")
     public ResponseEntity<List<RewardDto>> getRewardsMoreExpensiveThen(@PathVariable int price) throws RewardNotFoundException {
         List<Reward> rewards = rewardDbService.getRewardsMoreExpensiveThen(price);
@@ -58,6 +51,11 @@ public class RewardController {
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
 
+    @GetMapping
+    public ResponseEntity<List<RewardDto>> getAllRewards() {
+        List<Reward> rewards = rewardDbService.getAllRewards();
+        return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createReward(@RequestBody RewardDto rewardDto) {
