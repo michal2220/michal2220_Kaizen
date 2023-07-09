@@ -1,10 +1,7 @@
 package com.kaizen.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -38,4 +35,12 @@ public class Kaizen {
 
     @Column
     private boolean rewarded;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "reward_id")
+    private Reward reward;
 }

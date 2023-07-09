@@ -1,13 +1,13 @@
 package com.kaizen.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,4 +28,12 @@ public class User {
     @Column
     @NotNull
     private int birgade;
+
+    @OneToMany(
+            targetEntity = Kaizen.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Kaizen> kaizen = new ArrayList<>();
 }
