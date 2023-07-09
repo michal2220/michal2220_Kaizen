@@ -8,7 +8,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+@NamedQueries({
+        @NamedQuery(
+                name = "Reward.getRewardsMoreExpensiveThan",
+                query = "SELECT r FROM Reward r WHERE r.rewardId > :price"
+        ),
 
+        @NamedQuery(
+                name = "Reward.getRewardsLessExpensiveThan",
+                query = "SELECT r FROM Reward r WHERE r.rewardId <= :price"
+        ),
+
+})
 @Entity
 @Getter
 @Setter

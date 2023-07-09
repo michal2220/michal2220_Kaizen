@@ -5,11 +5,14 @@ import com.kaizen.controller.exception.RewardNotFoundException;
 import com.kaizen.domain.Reward;
 import com.kaizen.service.repository.KaizenRepository;
 import com.kaizen.service.repository.RewardRepository;
+import jakarta.persistence.NamedQuery;
+import jdk.jfr.Name;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @Data
@@ -35,5 +38,13 @@ public class RewardDbService {
 
     public void deleteRewardById(final int rewardId) throws RewardNotFoundException {
         rewardRepository.deleteByRewardId(rewardId);
+    }
+
+    public List<Reward> getRewardsMoreExpensiveThen(final int price) throws RewardNotFoundException {
+        return rewardRepository.getRewardsMoreExpensiveThan(price);
+    }
+
+    public List<Reward> getRewardsLessExpensiveThen(final int price) throws RewardNotFoundException {
+        return rewardRepository.getRewardsLessExpensiveThan(price);
     }
 }
