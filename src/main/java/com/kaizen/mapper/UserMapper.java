@@ -6,7 +6,6 @@ import com.kaizen.domain.dto.UserDto;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.dbService.UserDbService;
 import lombok.NoArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class UserMapper {
         );
     }
 
-    public List<UserDto> userDtosList(final List<User> users) {
+    public List<UserDto> mapToUserDtosList(final List<User> users) {
         return users.stream()
                 .map(this::mapToUserDto)
                 .collect(Collectors.toList());

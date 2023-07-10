@@ -11,6 +11,24 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "User.findUsersByKaizenCountGreaterThan",
+                query = "SELECT u FROM User u WHERE u.userId IN (SELECT k.user.userId FROM Kaizen k GROUP BY k.user.userId" +
+                        " HAVING COUNT(k.user.userId) > :kaizenCount)"
+        ),
+        @NamedQuery(
+                name = "User.findUsersByKaizenCountLessThan",
+                query = "SELECT u FROM User u WHERE u.userId IN (SELECT k.user.userId FROM Kaizen k GROUP BY k.user.userId" +
+                        " HAVING COUNT(k.user.userId) < :kaizenCount)"
+        ),
+        @NamedQuery(
+                name = "User.findUsersByIdeaCount",
+                query = "SELECT u FROM User u WHERE u.userId IN (SELECT k.user.userId FROM Kaizen k GROUP BY k.user.userId" +
+                        " HAVING COUNT(k.user.userId) = :kaizenCount)"
+        )
+})
+
 @Entity
 @Getter
 @Setter
@@ -55,3 +73,23 @@ public class User {
         this.brigade = brigade;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -24,4 +24,5 @@ public interface KaizenRepository extends CrudRepository<Kaizen, Integer> {
     List<Kaizen> findKaizenByFillingDateBefore(LocalDate date);
 
     List<Kaizen> findKaizenByUserNameAndUserLastname(String name, String lastname);
+
 }

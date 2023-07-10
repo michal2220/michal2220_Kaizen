@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -118,13 +120,15 @@ public class connectionWithDbTest {
                 false);
 
         kaizenRepository.save(kaizen);
+        List<Kaizen> kaizenList = new ArrayList<>();
+        kaizenList.add(kaizen);
 
         Reward reward = new Reward("Shopping coupon", 100);
 
         rewardRepository.save(reward);
 
         //When
-        reward.setKaizen(kaizen);
+        reward.setKaizen(kaizenList);
         kaizen.setReward(reward);
 
         //Then
