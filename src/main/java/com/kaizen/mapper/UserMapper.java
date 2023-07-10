@@ -6,17 +6,19 @@ import com.kaizen.domain.dto.UserDto;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.dbService.UserDbService;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserMapper {
 
-    private KaizenDbService kaizenDbService;
-    private UserDbService userDbService;
+    private final KaizenDbService kaizenDbService;
+
 
     public UserDto mapToUserDto(final User user) {
         return new UserDto(

@@ -28,21 +28,21 @@ public class UserController {
         return ResponseEntity.ok(userMapper.mapToUserDto(userDbService.getUser(userId)));
     }
 
-    @GetMapping("/kaizenQuantity/{kaizenQuantity}")
-    public ResponseEntity<List<UserDto>> getUsersByKaizenQuantity(@PathVariable int kaizenQuantity) {
-        List<User> users = userDbService.getUsersWithKaizenQuantity(kaizenQuantity);
+    @GetMapping("/kaizenQuantity/{kaizenCount}")
+    public ResponseEntity<List<UserDto>> getUsersByKaizenQuantity(@PathVariable int kaizenCount) {
+        List<User> users = userDbService.getUsersWithKaizenQuantity(kaizenCount);
         return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
     }
 
-    @GetMapping("/lessThen/{kaizenQuantity}")
-    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityLessThen(@PathVariable int kaizenQuantity) {
-        List<User> users = userDbService.getUsersWithLessThenKaizenQuantity(kaizenQuantity);
+    @GetMapping("/lessThen/{kaizenCount}")
+    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityLessThen(@PathVariable int kaizenCount) {
+        List<User> users = userDbService.getUsersWithLessThenKaizenQuantity(kaizenCount);
         return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
     }
 
-    @GetMapping("/moreThen/{kaizenQuantity}")
-    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityMoreThen(@PathVariable int kaizenQuantity) {
-        List<User> users = userDbService.getUsersWithMoreThenKaizenQuantity(kaizenQuantity);
+    @GetMapping("/moreThen/{kaizenCount}")
+    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityMoreThen(@PathVariable int kaizenCount) {
+        List<User> users = userDbService.getUsersWithMoreThenKaizenQuantity(kaizenCount);
         return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
     }
 

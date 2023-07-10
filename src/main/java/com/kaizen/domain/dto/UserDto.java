@@ -2,6 +2,7 @@ package com.kaizen.domain.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,7 +12,7 @@ public class UserDto {
     private String name;
     private String lastname;
     private int brigade;
-    private List<Integer> kaizenList;
+    private List<Integer> kaizenList = new ArrayList<>();
 
     public UserDto(int userId, String name, String lastname, int brigade, List<Integer> kaizenList) {
         this.userId = userId;

@@ -17,12 +17,12 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findAll();
 
     @Query
-    List<User> findUsersByIdeaCount(final int kaizenQuantity);
+    List<User> findUsersByIdeaCount(final int kaizenCount);
 
     @Query
-    List<User> findUsersByKaizenCountGreaterThan(final int kaizenQuantity);
+    List<User> findUsersByKaizenCountGreaterThan(final int kaizenCount);
 
-    List<User> findUsersByKaizenCountLessThan(final int kaizenQuantity);
+    List<User> findUsersByKaizenCountLessThan(final int kaizenCount);
 
     List<User> findUserByBrigade(final int brigade);
 

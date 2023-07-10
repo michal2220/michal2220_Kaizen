@@ -23,16 +23,16 @@ public class UserDbService {
         return userRepository.findAll();
     }
 
-    public List<User> getUsersWithKaizenQuantity(final int kaizenQuantity) {
-        return userRepository.findUsersByIdeaCount(kaizenQuantity);
+    public List<User> getUsersWithKaizenQuantity(final int kaizenCount) {
+        return userRepository.findUsersByIdeaCount(kaizenCount);
     }
 
-    public List<User> getUsersWithLessThenKaizenQuantity(final int kaizenQuantity) {
-        return userRepository.findUsersByKaizenCountLessThan(kaizenQuantity);
+    public List<User> getUsersWithLessThenKaizenQuantity(final int kaizenCount) {
+        return userRepository.findUsersByKaizenCountLessThan(kaizenCount);
     }
 
-    public List<User> getUsersWithMoreThenKaizenQuantity(final int kaizenQuantity) {
-        return userRepository.findUsersByKaizenCountGreaterThan(kaizenQuantity);
+    public List<User> getUsersWithMoreThenKaizenQuantity(final int kaizenCount) {
+        return userRepository.findUsersByKaizenCountGreaterThan(kaizenCount);
     }
 
     public List<User> getUsersByBrigade(final int brigade) {

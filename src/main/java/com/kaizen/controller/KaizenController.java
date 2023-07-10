@@ -23,8 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KaizenController {
 
-    private KaizenDbService kaizenDbService;
-    private KaizenMapper kaizenMapper;
+    private final KaizenDbService kaizenDbService;
+    private final KaizenMapper kaizenMapper;
 
 
     @GetMapping(value = "/kaizenId/{kaizenId}")

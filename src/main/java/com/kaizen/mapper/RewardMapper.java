@@ -13,10 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class RewardMapper {
 
-    @Autowired
     private KaizenDbService kaizenDbService;
 
     public RewardDto mapToRewardDto(final Reward reward) {
