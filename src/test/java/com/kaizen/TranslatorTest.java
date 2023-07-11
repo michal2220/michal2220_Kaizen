@@ -1,24 +1,28 @@
 package com.kaizen;
 
 import com.kaizen.api.client.TranslatorClient;
-import com.kaizen.api.translationInput.InputToClient;
-import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
 public class TranslatorTest {
 
     @Autowired
-    private InputToClient inputToClient;
-
-    @Autowired
     private TranslatorClient translatorClient;
 
     @Test
-    public void testttt() throws ParseException {
-        translatorClient.translationStart();
-    }
+    public void doTranslateTest() {
+        //Given
+        String input = "Próba czy działa";
 
+        //When
+        String testTranslation = translatorClient.doTranslate(input);
+        System.out.println(testTranslation);
+
+        //Then
+        assertEquals("Test","Try if it works", testTranslation);
+    }
 }

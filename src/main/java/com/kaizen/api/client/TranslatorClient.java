@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,10 +13,16 @@ public class TranslatorClient {
 
     private final InputToClient inputToClient;
 
-    public void translationStart() {
+    public String doTranslate(String input) {
+        JSONArray translations = new JSONArray();
 
 
-        String inputToTranslate = inputToClient.buildInput();
+        String inputToTranslate = "{" +
+                "\"q\": \"" + input + "\",\r" +
+                "\"source\": \"pl\",\r" +
+                "\"target\": \"en\",\r" +
+                "\"format\": \"text\"\r" +
+                "}";
 
         try {
             OkHttpClient client = new OkHttpClient();
@@ -38,13 +43,12 @@ public class TranslatorClient {
             String text = response.body().string();
 
             JSONObject json = new JSONObject(text);
-            JSONArray translations = json.getJSONObject("data").getJSONArray("translations");
-            String translatedText = translations.getJSONObject(0).getString("translatedText");
+            translations = json.getJSONObject("data").getJSONArray("translations");
 
-            System.out.println(translatedText);
 
         } catch (Exception e) {
 
         }
+        return translations.getJSONObject(0).getString("translatedText");
     }
 }

@@ -9,17 +9,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public final class InputToClient {
 
-    @Autowired
     private final KaizenDbService kaizenDbService;
 
     public String buildInput() {
 
-        String problem = kaizenDbService.getKaizen(1).getProblem().toString();
-
+        String problem = kaizenDbService.getKaizen(1).getProblem();
+        System.out.println(problem);
         return  "{" +
                 "\"q\": \"" + problem + "\",\r" +
                 "\"source\": \"pl\",\r" +
-                "\"target\": \"uk\",\r" +
+                "\"target\": \"en\",\r" +
                 "\"format\": \"text\"\r" +
                 "}";
     }
