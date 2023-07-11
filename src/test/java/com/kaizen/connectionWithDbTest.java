@@ -142,8 +142,11 @@ public class connectionWithDbTest {
         assertFalse(rewardRepository.existsById(reward.getRewardId()));
     }
 
-/*    @Test
-    public void cleanAllTablesTest() {
+/*
+        This needs to be commented as I'm using this to complexity clean database
+
+        @Test
+        public void cleanAllTablesTest() {
         //Given & When
         kaizenRepository.deleteAll();
         userRepository.deleteAll();
