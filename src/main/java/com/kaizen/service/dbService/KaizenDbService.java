@@ -49,4 +49,5 @@ public class KaizenDbService {
     public List<Kaizen> getKaizensCreatedBy(String name, String lastname) {
         return kaizenRepository.findKaizenByUserNameAndUserLastname(name,lastname);
     }
+
 }
