@@ -16,7 +16,7 @@ public class TranslatorTest {
     @Test
     public void doTranslateTest() {
         //Given
-        String input = "Próba czy działa";
+        String input = "Zobaczymy czy działa";
 
         //When
         String testTranslation = translatorClient.doTranslate(input);

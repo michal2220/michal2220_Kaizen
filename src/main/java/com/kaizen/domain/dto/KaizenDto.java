@@ -16,12 +16,12 @@ public class KaizenDto {
     private String solution;
     private boolean rewarded;
     private int userId;
-    private int rewardId;
+    private Integer rewardId;
 
     public KaizenDto(int kaizenId, LocalDate fillingDate,
                      boolean completed, LocalDate completionDate,
                      String problem, String solution, boolean rewarded,
-                     int userId, int rewardId) {
+                     int userId, Integer rewardId) {
         this.kaizenId = kaizenId;
         this.fillingDate = fillingDate;
         this.completed = completed;

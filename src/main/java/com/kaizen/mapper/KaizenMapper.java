@@ -31,7 +31,7 @@ public class KaizenMapper {
                 kaizen.getSolution(),
                 kaizen.isRewarded(),
                 kaizen.getUser().getUserId(),
-                kaizen.getReward().getRewardId()
+                kaizen.getReward() == null ? null : kaizen.getReward().getRewardId()
         );
     }
 

@@ -38,8 +38,7 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.2'
-    implementation 'org.json:json:20210307'
+    implementation 'org.json:json:20230227'
 }
 
 dependencyManagement {
