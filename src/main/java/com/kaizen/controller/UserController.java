@@ -1,10 +1,8 @@
 package com.kaizen.controller;
 
-import com.kaizen.controller.exception.RewardNotFoundException;
+import com.kaizen.aop.Watcher;
 import com.kaizen.controller.exception.UserNotFoundException;
-import com.kaizen.domain.Reward;
 import com.kaizen.domain.User;
-import com.kaizen.domain.dto.RewardDto;
 import com.kaizen.domain.dto.UserDto;
 import com.kaizen.mapper.UserMapper;
 import com.kaizen.service.dbService.UserDbService;
@@ -15,13 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/v1/users")
 @RequiredArgsConstructor
+
 public class UserController {
 
     private final UserDbService userDbService;
     private final UserMapper userMapper;
+    private final Watcher watcher;
+    int userToWatcher;
 
     @GetMapping("/userId/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable int userId) throws UserNotFoundException {
@@ -62,6 +64,7 @@ public class UserController {
     public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
         userDbService.saveUser(user);
+        watcher.logSavingUser(user.getUserId());
         return ResponseEntity.ok().build();
     }
 
@@ -69,12 +72,22 @@ public class UserController {
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
         User user = userMapper.mapToUser(userDto);
         User savedUser = userDbService.saveUser(user);
+        watcher.logSavingUser(user.getUserId());
         return ResponseEntity.ok(userMapper.mapToUserDto(savedUser));
     }
 
     @DeleteMapping(value = "{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
+        watcher.logDeleteUser(userId);
         userDbService.deleteUserById(userId);
         return ResponseEntity.ok().build();
+    }
+
+    public void setUserToWatcher(int userToWatcher) {
+        this.userToWatcher = userToWatcher;
+    }
+
+    public int getUserToWatcher() {
+        return userToWatcher;
     }
 }
