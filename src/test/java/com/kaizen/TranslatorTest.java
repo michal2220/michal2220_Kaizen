@@ -12,8 +12,8 @@ public class TranslatorTest {
 
     @Autowired
     private TranslatorClient translatorClient;
-
-    @Test
+  //commented as only 500 uses of API is for free
+  /*  @Test
     public void doTranslateTest() {
         //Given
         String input = "Zobaczymy czy działa";
@@ -23,6 +23,6 @@ public class TranslatorTest {
         System.out.println(testTranslation);
 
         //Then
-        assertEquals("Test","Try if it works", testTranslation);
-    }
+        assertEquals("Test","We'll see if it works", testTranslation);
+    }*/
 }

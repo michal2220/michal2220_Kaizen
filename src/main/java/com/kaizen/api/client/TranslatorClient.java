@@ -8,13 +8,21 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 @RequiredArgsConstructor
 public class TranslatorClient {
 
+    @Value("${api.translator.endpoint.url}")
+    private String translatorApiEndpoint;
+
+    @Value("${api.translator.endpoint.key}")
+    private String apiKey;
+
+    @Value("${api.translator.endpoint.host}")
+    private String apiHost;
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorClient.class);
 
     private final InputToClient inputToClient;
@@ -39,11 +47,11 @@ public class TranslatorClient {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create(mediaType, inputToTranslate);
             Request request = new Request.Builder()
-                    .url("https://google-translator9.p.rapidapi.com/v2")
+                    .url(translatorApiEndpoint)
                     .post(body)
                     .addHeader("content-type", "application/json")
-                    .addHeader("X-RapidAPI-Key", "728922b712msh829ff71372dbe89p1471fcjsn90aeca9b6d17")
-                    .addHeader("X-RapidAPI-Host", "google-translator9.p.rapidapi.com")
+                    .addHeader("X-RapidAPI-Key", apiKey)
+                    .addHeader("X-RapidAPI-Host", apiHost)
                     .build();
 
             Response response = client.newCall(request).execute();
