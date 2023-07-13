@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RewardMapper {
 
-    private KaizenDbService kaizenDbService;
+    private final KaizenDbService kaizenDbService;
 
     public RewardDto mapToRewardDto(final Reward reward) {
         return new RewardDto(

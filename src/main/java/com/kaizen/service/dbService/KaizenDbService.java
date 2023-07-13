@@ -6,7 +6,6 @@ import com.kaizen.domain.User;
 import com.kaizen.service.repository.KaizenRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.LuhnCheck;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -49,4 +48,5 @@ public class KaizenDbService {
     public List<Kaizen> getKaizensCreatedBy(String name, String lastname) {
         return kaizenRepository.findKaizenByUserNameAndUserLastname(name,lastname);
     }
+
 }
