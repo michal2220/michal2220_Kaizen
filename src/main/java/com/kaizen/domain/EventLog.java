@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Watcher {
+public class EventLog {
 
     @Id
     @GeneratedValue
@@ -28,6 +28,6 @@ public class Watcher {
     @Column
     private LocalTime eventTime;
 
-    @Column
+    @Column(length = 1000)
     private String eventDescription;
 }
