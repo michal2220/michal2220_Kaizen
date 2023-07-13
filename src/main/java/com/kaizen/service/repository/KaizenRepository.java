@@ -25,4 +25,6 @@ public interface KaizenRepository extends CrudRepository<Kaizen, Integer> {
 
     List<Kaizen> findKaizenByUserNameAndUserLastname(String name, String lastname);
 
+    List<Kaizen> findKaizenByCompleted(boolean completed);
+
 }
