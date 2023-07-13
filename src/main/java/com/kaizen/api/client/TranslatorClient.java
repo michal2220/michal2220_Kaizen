@@ -24,28 +24,19 @@ public class TranslatorClient {
     @Value("${api.translator.endpoint.host}")
     private String apiHost;
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorClient.class);
-
     private final InputToClient inputToClient;
 
-    public String doTranslate(String input) {
-        JSONArray translations = new JSONArray();
 
+    public String sendTranslationToApi(String input) {
+        String translatedInput = "";
         LOGGER.info("**** Preparing string to translate ****");
-
-        String inputToTranslate = "{" +
-                "\"q\": \"" + input + "\",\r" +
-                "\"source\": \"pl\",\r" +
-                "\"target\": \"en\",\r" +
-                "\"format\": \"text\"\r" +
-                "}";
-
         LOGGER.info("**** Sending translation ****");
 
         try {
             OkHttpClient client = new OkHttpClient();
 
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, inputToTranslate);
+            RequestBody body = RequestBody.create(mediaType, inputToClient.buildInput(input));
             Request request = new Request.Builder()
                     .url(translatorApiEndpoint)
                     .post(body)
@@ -55,18 +46,11 @@ public class TranslatorClient {
                     .build();
 
             Response response = client.newCall(request).execute();
-
-
-            String text = response.body().string();
-
-            JSONObject json = new JSONObject(text);
-            translations = json.getJSONObject("data").getJSONArray("translations");
-
-            LOGGER.info("**** Translation completed ****");
+            translatedInput = response.body().string();
 
         } catch (Exception e) {
 
         }
-        return translations.getJSONObject(0).getString("translatedText");
+        return translatedInput;
     }
 }
