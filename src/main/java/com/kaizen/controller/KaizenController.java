@@ -1,10 +1,12 @@
 package com.kaizen.controller;
 
+import com.kaizen.api.Translator;
 import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.controller.exception.RewardNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.mapper.KaizenMapper;
+import com.kaizen.scheduler.EmailScheduler;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.infoToKaizen.KaizenService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,8 @@ public class KaizenController {
 
     private final KaizenDbService kaizenDbService;
     private final KaizenMapper kaizenMapper;
-
     private final KaizenService kaizenService;
+    private final Translator translator;
 
 
 
@@ -50,12 +52,18 @@ public class KaizenController {
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDtoList(kaizens));
     }
 
+    @GetMapping(value = "/translate/{kaizenId}")
+    public ResponseEntity<String> translateKaizenById(@PathVariable int kaizenId) throws KaizenNotFoundException {
+        Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
+        String problem = kaizen.getProblem();
+        String translatedIdea = translator.doTranslate(problem);
+        return ResponseEntity.ok(translatedIdea);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws KaizenNotFoundException, RewardNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
-        //odwołanie do translatora
         kaizenService.addKaizen(kaizen);
-
         return ResponseEntity.ok().build();
     }
 
@@ -70,11 +78,9 @@ public class KaizenController {
     public ResponseEntity<KaizenDto> markAsCompleted(@PathVariable int kaizendId, @RequestParam("completionDate") LocalDate completionDate) throws KaizenNotFoundException {
         Kaizen kaizen = kaizenDbService.getKaizen(kaizendId);
         if (kaizen.isCompleted()) {
-            //Nowy exception i obsługa tego błędu w GlobaHttpException
-            /*throw new Exception();*/
+            kaizen.setCompleted(true);
+            kaizen.setCompletionDate(completionDate);
         }
-        kaizen.setCompleted(true);
-        kaizen.setCompletionDate(completionDate);
         Kaizen savedKaizen = kaizenDbService.saveKaizen(kaizen);
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDto(savedKaizen));
     }

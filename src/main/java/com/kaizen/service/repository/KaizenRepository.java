@@ -1,7 +1,6 @@
 package com.kaizen.service.repository;
 
 import com.kaizen.domain.Kaizen;
-import com.kaizen.domain.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

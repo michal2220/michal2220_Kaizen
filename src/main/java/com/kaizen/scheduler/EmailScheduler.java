@@ -1,4 +1,4 @@
-package com.kaizen.Scheduler;
+package com.kaizen.scheduler;
 
 import com.kaizen.api.DadJoke;
 import com.kaizen.mailService.Mail;
@@ -7,8 +7,6 @@ import com.kaizen.service.repository.KaizenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -28,8 +26,8 @@ public class EmailScheduler {
                         "gawlas05@gmail.com",
                         SUBJECT,
                         "Currently there are " +
-                                kaizenRepository.findKaizenByCompleted(false)
-                        + "unfinished ideas" + """
+                                kaizenRepository.findKaizenByCompleted(false).size()
+                        + " unfinished ideas" + """
                                 
                                 
                                 
