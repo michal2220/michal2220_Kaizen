@@ -6,6 +6,7 @@ import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.mapper.KaizenMapper;
 import com.kaizen.service.dbService.KaizenDbService;
+import com.kaizen.service.infoToKaizen.KaizenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class KaizenController {
 
     private final KaizenDbService kaizenDbService;
     private final KaizenMapper kaizenMapper;
+
+    private final KaizenService kaizenService;
+
 
 
     @GetMapping(value = "/kaizenId/{kaizenId}")
@@ -50,7 +54,8 @@ public class KaizenController {
     public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws KaizenNotFoundException, RewardNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         //odwołanie do translatora
-        kaizenDbService.saveKaizen(kaizen);
+        kaizenService.addKaizen(kaizen);
+
         return ResponseEntity.ok().build();
     }
 
