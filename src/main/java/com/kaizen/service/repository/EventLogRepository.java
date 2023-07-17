@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventLogRepository extends CrudRepository<EventLog, Integer> {
 
+    EventLog findByEventDescriptionContains(String text);
+
+    boolean existsByEventDescription(String text);
+
 }

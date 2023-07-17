@@ -24,10 +24,8 @@ public class Watcher {
     private final UserDbService userDbService;
     @Autowired
     private final KaizenDbService kaizenDbService;
-    @Autowired
-    private final RewardRepository rewardRepository;
 
-    private void saveToLogDatabase(String eventString) {
+    public void saveToLogDatabase(String eventString) {
         EventLog event = new EventLog();
         event.setEventDate(LocalDate.now());
         event.setEventTime(LocalTime.now());
@@ -36,7 +34,7 @@ public class Watcher {
         eventLogRepository.save(event);
     }
 
-    private UserEventDescriptionBuilder buildBasicUserDescription(int userId) {
+    public UserEventDescriptionBuilder buildBasicUserDescription(int userId) {
         UserEventDescriptionBuilder userEventDescriptionBuilder1 = new UserEventDescriptionBuilder.Builder()
                 .eventId(userDbService.getUser(userId).getUserId())
                 .userName(userDbService.getUser(userId).getName())
@@ -57,7 +55,7 @@ public class Watcher {
     public void logDeleteUser(int userId) {
 
         UserEventDescriptionBuilder userEventDescriptionBuilder1 = buildBasicUserDescription(userId);
-        String eventString = "DELETED :" + userEventDescriptionBuilder1.toString();
+        String eventString = "DELETED: " + userEventDescriptionBuilder1.toString();
 
         saveToLogDatabase(eventString);
     }

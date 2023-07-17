@@ -95,6 +95,7 @@ public class KaizenController {
     @DeleteMapping(value = "{kaizenId}")
     public ResponseEntity<Void> deleteKaizen(@PathVariable int kaizenId) throws KaizenNotFoundException {
         kaizenDbService.deleteKaizenById(kaizenId);
+        watcher.logDeletingKaizen(kaizenId);
         return ResponseEntity.ok().build();
     }
 }
