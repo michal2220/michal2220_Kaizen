@@ -88,7 +88,7 @@ public class KaizenController {
             kaizen.setCompletionDate(completionDate);
         }
         Kaizen savedKaizen = kaizenDbService.saveKaizen(kaizen);
-        watcher.logCompletingKaiden(kaizendId);
+        watcher.logCompletingKaizen(kaizendId);
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDto(savedKaizen));
     }
 

@@ -5,7 +5,6 @@ import com.kaizen.domain.Kaizen;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.dbService.UserDbService;
 import com.kaizen.service.repository.EventLogRepository;
-import com.kaizen.service.repository.RewardRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +75,7 @@ public class Watcher {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizen);
-        String eventString = "Created :" + kaizenEventDescriptionBuilder.toString();
+        String eventString = "CREATED: " + kaizenEventDescriptionBuilder.toString();
 
         saveToLogDatabase(eventString);
     }
@@ -85,12 +84,12 @@ public class Watcher {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizen);
-        String eventString = "DELETED :" + kaizenEventDescriptionBuilder.toString();
+        String eventString = "DELETED: " + kaizenEventDescriptionBuilder.toString();
 
         saveToLogDatabase(eventString);
     }
 
-    public void logCompletingKaiden(int kaizenId) {
+    public void logCompletingKaizen(int kaizenId) {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
 
@@ -100,7 +99,7 @@ public class Watcher {
                 .kaizenIsRewarded(kaizen.isRewarded())
                 .build();
 
-        String eventString = "REWARDED with:" + kaizen.getReward().getName() + "kaizen: " + kaizenEventDescriptionBuilder2.toString();
+        String eventString = "REWARDED with: " + kaizen.getReward().getName() + " kaizen: " + kaizenEventDescriptionBuilder2.toString();
 
         saveToLogDatabase(eventString);
     }
