@@ -1,6 +1,6 @@
-package com.kaizen.books.domain;
+package forontEnd.books.domain;
 
-import com.kaizen.books.BookType;
+import forontEnd.books.BookType;
 
 import java.util.HashSet;
 import java.util.Set;

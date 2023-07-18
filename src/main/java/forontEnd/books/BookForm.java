@@ -1,7 +1,7 @@
-package com.kaizen.books;
+package forontEnd.books;
 
-import com.kaizen.books.domain.Book;
-import com.kaizen.books.domain.BookService;
+import forontEnd.books.domain.Book;
+import forontEnd.books.domain.BookService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;

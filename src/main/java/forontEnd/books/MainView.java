@@ -1,7 +1,8 @@
-package com.kaizen.books;
+package forontEnd.books;
 
-import com.kaizen.books.domain.Book;
-import com.kaizen.books.domain.BookService;
+import forontEnd.books.domain.Book;
+import forontEnd.books.domain.BookService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,6 +18,7 @@ public class MainView extends HorizontalLayout {
     private Grid<Book> grid = new Grid<>(Book.class);
     private TextField filter = new TextField();
     private BookForm form = new BookForm(this);
+    private Button addNewBook = new Button("Add new book");
     public void refresh() {
         grid.setItems(bookService.getBooks());
     }
@@ -25,17 +27,24 @@ public class MainView extends HorizontalLayout {
         grid.setItems(bookService.findByTitle(filter.getValue()));
     }
     public MainView() {
-        form.setBook(null);
         filter.setPlaceholder("Filter by title...");
         filter.setClearButtonVisible(true);
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> update());
         grid.setColumns("title", "author", "publicationYear", "type");
+
+        addNewBook.addClickListener(e -> {
+            grid.asSingleSelect().clear();
+            form.setBook(new Book());
+        });
+        HorizontalLayout toolbar = new HorizontalLayout(filter, addNewBook);
+
         HorizontalLayout mainContent = new HorizontalLayout(grid, form);
         mainContent.setSizeFull();
         grid.setSizeFull();
 
-        add(filter, mainContent);
+        add(toolbar, mainContent);
+        form.setBook(null);
         setSizeFull();
         refresh();
 
