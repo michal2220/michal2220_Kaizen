@@ -19,10 +19,11 @@ import java.time.LocalTime;
 public class Watcher {
 
     private final EventLogRepository eventLogRepository;
-    @Autowired
+
     private final UserDbService userDbService;
-    @Autowired
+
     private final KaizenDbService kaizenDbService;
+
 
     public void saveToLogDatabase(String eventString) {
         EventLog event = new EventLog();
@@ -31,16 +32,6 @@ public class Watcher {
         event.setEventDescription(eventString);
 
         eventLogRepository.save(event);
-    }
-
-    public UserEventDescriptionBuilder buildBasicUserDescription(int userId) {
-        UserEventDescriptionBuilder userEventDescriptionBuilder1 = new UserEventDescriptionBuilder.Builder()
-                .eventId(userDbService.getUser(userId).getUserId())
-                .userName(userDbService.getUser(userId).getName())
-                .userLastname(userDbService.getUser(userId).getLastname())
-                .userBrigade(userDbService.getUser(userId).getBrigade())
-                .build();
-        return userEventDescriptionBuilder1;
     }
 
     public void logSavingUser(int userId) {
@@ -59,22 +50,10 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    private static KaizenEventDescriptionBuilder buildBasicKaizenDescription(Kaizen kaizen) {
-        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = new KaizenEventDescriptionBuilder.Builder()
-                .eventId(kaizen.getKaizenId())
-                .kaizenProblem(kaizen.getProblem())
-                .kaizenSolution(kaizen.getProblem())
-                .kaizenCompleted(kaizen.isCompleted())
-                .kaizenIsRewarded(kaizen.isRewarded())
-                .kaizenCompletionDate(kaizen.getCompletionDate())
-                .build();
-        return kaizenEventDescriptionBuilder;
-    }
-
     public void logCreatingKaizen(int kaizenId) {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
-        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizen);
+        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
         String eventString = "CREATED: " + kaizenEventDescriptionBuilder.toString();
 
         saveToLogDatabase(eventString);
@@ -82,8 +61,7 @@ public class Watcher {
 
     public void logDeletingKaizen(int kaizenId) {
 
-        Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
-        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizen);
+        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
         String eventString = "DELETED: " + kaizenEventDescriptionBuilder.toString();
 
         saveToLogDatabase(eventString);
@@ -117,5 +95,27 @@ public class Watcher {
                 + " was translated to: " + translation;
 
         saveToLogDatabase(eventString);
+    }
+
+    private KaizenEventDescriptionBuilder buildBasicKaizenDescription(int kaizenId) {
+        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = new KaizenEventDescriptionBuilder.Builder()
+                .eventId(kaizenDbService.getKaizen(kaizenId).getKaizenId())
+                .kaizenProblem(kaizenDbService.getKaizen(kaizenId).getProblem())
+                .kaizenSolution(kaizenDbService.getKaizen(kaizenId).getSolution())
+                .kaizenCompleted(kaizenDbService.getKaizen(kaizenId).isCompleted())
+                .kaizenIsRewarded(kaizenDbService.getKaizen(kaizenId).isRewarded())
+                .kaizenCompletionDate(kaizenDbService.getKaizen(kaizenId).getCompletionDate())
+                .build();
+        return kaizenEventDescriptionBuilder;
+    }
+
+    public UserEventDescriptionBuilder buildBasicUserDescription(int userId) {
+        UserEventDescriptionBuilder userEventDescriptionBuilder1 = new UserEventDescriptionBuilder.Builder()
+                .eventId(userDbService.getUser(userId).getUserId())
+                .userName(userDbService.getUser(userId).getName())
+                .userLastname(userDbService.getUser(userId).getLastname())
+                .userBrigade(userDbService.getUser(userId).getBrigade())
+                .build();
+        return userEventDescriptionBuilder1;
     }
 }

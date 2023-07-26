@@ -26,6 +26,10 @@ import java.util.List;
                 name = "User.findUsersByIdeaCount",
                 query = "SELECT u FROM User u WHERE u.userId IN (SELECT k.user.userId FROM Kaizen k GROUP BY k.user.userId" +
                         " HAVING COUNT(k.user.userId) = :kaizenCount)"
+        ),
+        @NamedQuery(
+                name = "User.findUsersByLastname",
+                query = "SELECT u FROM User u WHERE u.lastname = :lastname"
         )
 })
 

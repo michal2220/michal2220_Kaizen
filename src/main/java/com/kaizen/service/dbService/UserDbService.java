@@ -43,7 +43,11 @@ public class UserDbService {
         return userRepository.save(user);
     }
 
-    public void deleteUserById(final int userId){
+    public void deleteUserById(final int userId) {
         userRepository.deleteById(userId);
+    }
+
+    public List<User> findByLastname(final String lastname) {
+        return userRepository.findUsersByLastname(lastname);
     }
 }

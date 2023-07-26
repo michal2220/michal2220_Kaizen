@@ -30,6 +30,12 @@ public class UserController {
         return ResponseEntity.ok(userMapper.mapToUserDto(userDbService.getUser(userId)));
     }
 
+    @GetMapping("/userLastname/{lastname}")
+    public ResponseEntity<List<UserDto>> findByLastname(@PathVariable String lastname) throws UserNotFoundException {
+        List<User> users = userDbService.findByLastname(lastname);
+        return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
+    }
+
     @GetMapping("/kaizenQuantity/{kaizenCount}")
     public ResponseEntity<List<UserDto>> getUsersByKaizenQuantity(@PathVariable int kaizenCount) {
         List<User> users = userDbService.getUsersWithKaizenQuantity(kaizenCount);
@@ -82,6 +88,7 @@ public class UserController {
         userDbService.deleteUserById(userId);
         return ResponseEntity.ok().build();
     }
+
 
     public void setUserToWatcher(int userToWatcher) {
         this.userToWatcher = userToWatcher;

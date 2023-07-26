@@ -27,4 +27,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findUserByBrigade(final int brigade);
 
     void deleteByUserId(final int userId);
+
+    @Query
+    List<User> findUsersByLastname(String lastname);
 }
