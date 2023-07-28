@@ -3,10 +3,12 @@ package com.kaizen.domain.dto;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.User;
 import lombok.Data;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Data
+@Setter
 public class KaizenDto {
     private int kaizenId;
     private LocalDate fillingDate;
@@ -17,6 +19,9 @@ public class KaizenDto {
     private boolean rewarded;
     private int userId;
     private Integer rewardId;
+
+    public KaizenDto() {
+    }
 
     public KaizenDto(int kaizenId, LocalDate fillingDate,
                      boolean completed, LocalDate completionDate,

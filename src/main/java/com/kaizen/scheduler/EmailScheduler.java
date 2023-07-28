@@ -31,7 +31,8 @@ public class EmailScheduler {
                                 
                                 
                                 
-                                
+                             
+                             Joke for today:   
                                 """+dadJoke.getJoke()
                 )
         );
