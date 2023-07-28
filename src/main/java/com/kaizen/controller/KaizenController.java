@@ -8,8 +8,10 @@ import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.mapper.KaizenMapper;
 import com.kaizen.service.dbService.KaizenDbService;
-import com.kaizen.service.infoToKaizen.KaizenService;
+import com.kaizen.service.infoToKaizen.KaizenMailService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +28,9 @@ public class KaizenController {
 
     private final KaizenDbService kaizenDbService;
     private final KaizenMapper kaizenMapper;
-    private final KaizenService kaizenService;
+    private final KaizenMailService kaizenMailService;
     private final Translator translator;
     private final Watcher watcher;
-
-
 
     @GetMapping(value = "/kaizenId/{kaizenId}")
     public ResponseEntity<KaizenDto> getRewardById(@PathVariable int kaizenId) throws KaizenNotFoundException {
@@ -65,10 +65,11 @@ public class KaizenController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws KaizenNotFoundException, RewardNotFoundException {
+    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
-        kaizenService.addKaizen(kaizen);
+        kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());
+        kaizenMailService.addKaizen(kaizen);
         return ResponseEntity.ok().build();
     }
 
@@ -93,7 +94,7 @@ public class KaizenController {
     }
 
     @DeleteMapping(value = "{kaizenId}")
-    public ResponseEntity<Void> deleteKaizen(@PathVariable int kaizenId) throws KaizenNotFoundException {
+    public ResponseEntity<Void> deleteKaizen(@PathVariable int kaizenId) {
         watcher.logDeletingKaizen(kaizenId);
         kaizenDbService.deleteKaizenById(kaizenId);
         return ResponseEntity.ok().build();

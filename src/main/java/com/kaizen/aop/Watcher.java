@@ -7,6 +7,8 @@ import com.kaizen.service.dbService.UserDbService;
 import com.kaizen.service.repository.EventLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Component
-@RequiredArgsConstructor
 @Aspect
 public class Watcher {
 
@@ -24,6 +25,13 @@ public class Watcher {
 
     private final KaizenDbService kaizenDbService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
+
+    public Watcher(EventLogRepository eventLogRepository, UserDbService userDbService, KaizenDbService kaizenDbService) {
+        this.eventLogRepository = eventLogRepository;
+        this.userDbService = userDbService;
+        this.kaizenDbService = kaizenDbService;
+    }
 
     public void saveToLogDatabase(String eventString) {
         EventLog event = new EventLog();
@@ -42,19 +50,18 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logDeleteUser(int userId) {
-
-        UserEventDescriptionBuilder userEventDescriptionBuilder1 = buildBasicUserDescription(userId);
-        String eventString = "DELETED: " + userEventDescriptionBuilder1.toString();
+    public void logCreatingKaizen(int kaizenId) {
+        LOGGER.info("IN WATCHER: " + kaizenId);
+        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
+        String eventString = "CREATED: " + kaizenEventDescriptionBuilder.toString();
 
         saveToLogDatabase(eventString);
     }
 
-    public void logCreatingKaizen(int kaizenId) {
+    public void logDeleteUser(int userId) {
 
-        Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
-        KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
-        String eventString = "CREATED: " + kaizenEventDescriptionBuilder.toString();
+        UserEventDescriptionBuilder userEventDescriptionBuilder1 = buildBasicUserDescription(userId);
+        String eventString = "DELETED: " + userEventDescriptionBuilder1.toString();
 
         saveToLogDatabase(eventString);
     }
@@ -98,13 +105,16 @@ public class Watcher {
     }
 
     private KaizenEventDescriptionBuilder buildBasicKaizenDescription(int kaizenId) {
+        LOGGER.info("ID INPUT: " + kaizenId);
+        Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
+        LOGGER.info("ID: " + kaizen.getKaizenId());
         KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = new KaizenEventDescriptionBuilder.Builder()
-                .eventId(kaizenDbService.getKaizen(kaizenId).getKaizenId())
-                .kaizenProblem(kaizenDbService.getKaizen(kaizenId).getProblem())
-                .kaizenSolution(kaizenDbService.getKaizen(kaizenId).getSolution())
-                .kaizenCompleted(kaizenDbService.getKaizen(kaizenId).isCompleted())
-                .kaizenIsRewarded(kaizenDbService.getKaizen(kaizenId).isRewarded())
-                .kaizenCompletionDate(kaizenDbService.getKaizen(kaizenId).getCompletionDate())
+                .eventId(kaizen.getKaizenId())
+                .kaizenProblem(kaizen.getProblem())
+                .kaizenSolution(kaizen.getSolution())
+                .kaizenCompleted(kaizen.isCompleted())
+                .kaizenIsRewarded(kaizen.isRewarded())
+                .kaizenCompletionDate(kaizen.getCompletionDate())
                 .build();
         return kaizenEventDescriptionBuilder;
     }

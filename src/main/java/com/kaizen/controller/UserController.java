@@ -88,13 +88,4 @@ public class UserController {
         userDbService.deleteUserById(userId);
         return ResponseEntity.ok().build();
     }
-
-
-    public void setUserToWatcher(int userToWatcher) {
-        this.userToWatcher = userToWatcher;
-    }
-
-    public int getUserToWatcher() {
-        return userToWatcher;
-    }
 }

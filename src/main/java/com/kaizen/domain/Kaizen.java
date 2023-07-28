@@ -60,6 +60,20 @@ public class Kaizen {
         this.user = user;
         this.reward = reward;
     }
+    public Kaizen(int kaizenId, LocalDate fillingDate,
+                  boolean completed, LocalDate completionDate,
+                  String problem, String solution, boolean rewarded,
+                  User user) {
+        this.kaizenId = kaizenId;
+        this.fillingDate = fillingDate;
+        this.completed = completed;
+        this.completionDate = completionDate;
+        this.problem = problem;
+        this.solution = solution;
+        this.rewarded = rewarded;
+        this.user = user;
+    }
+
 
 
     public Kaizen(LocalDate fillingDate, boolean completed, String problem, String solution, boolean rewarded) {

@@ -1,7 +1,6 @@
 package com.kaizen.service.infoToKaizen;
 
 import com.kaizen.domain.Kaizen;
-import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.mailService.Mail;
 import com.kaizen.mailService.SimpleEmailService;
 import com.kaizen.service.dbService.KaizenDbService;
@@ -10,10 +9,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class KaizenService {
+public class KaizenMailService {
 
     public static String SUBJECT = "New kaizen was registered";
-
     private final KaizenDbService kaizenDbService;
     private final SimpleEmailService simpleEmailService;
 

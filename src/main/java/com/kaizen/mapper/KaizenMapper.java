@@ -36,17 +36,31 @@ public class KaizenMapper {
     }
 
     public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws RewardNotFoundException {
-        return new Kaizen(
-                kaizenDto.getKaizenId(),
-                kaizenDto.getFillingDate(),
-                kaizenDto.isCompleted(),
-                kaizenDto.getCompletionDate(),
-                kaizenDto.getProblem(),
-                kaizenDto.getSolution(),
-                kaizenDto.isRewarded(),
-                userDbService.getUser(kaizenDto.getUserId()),
-                rewardDbService.getReward(kaizenDto.getRewardId())
-        );
+        try {
+            return new Kaizen(
+                    kaizenDto.getKaizenId(),
+                    kaizenDto.getFillingDate(),
+                    kaizenDto.isCompleted(),
+                    kaizenDto.getCompletionDate(),
+                    kaizenDto.getProblem(),
+                    kaizenDto.getSolution(),
+                    kaizenDto.isRewarded(),
+                    userDbService.getUser(kaizenDto.getUserId()),
+                    rewardDbService.getReward(kaizenDto.getRewardId()) == null ? null : rewardDbService.getReward(kaizenDto.getRewardId())
+            );
+        } catch (NullPointerException e) {
+            return new Kaizen(
+                    kaizenDto.getKaizenId(),
+                    kaizenDto.getFillingDate(),
+                    kaizenDto.isCompleted(),
+                    kaizenDto.getCompletionDate(),
+                    kaizenDto.getProblem(),
+                    kaizenDto.getSolution(),
+                    kaizenDto.isRewarded(),
+                    userDbService.getUser(kaizenDto.getUserId())
+            );
+        }
+
     }
 
     public List<KaizenDto> mapToKaizenDtoList(final List<Kaizen> kaizens) {
