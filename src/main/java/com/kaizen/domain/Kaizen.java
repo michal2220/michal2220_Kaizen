@@ -83,4 +83,19 @@ public class Kaizen {
         this.solution = solution;
         this.rewarded = rewarded;
     }
+
+    @Override
+    public String toString() {
+        return "Kaizen{" +
+                "kaizenId=" + kaizenId +
+                ", fillingDate=" + fillingDate +
+                ", completed=" + completed +
+                ", completionDate=" + completionDate +
+                ", problem='" + problem + '\'' +
+                ", solution='" + solution + '\'' +
+                ", rewarded=" + rewarded +
+                ", user=" + user +
+                ", reward=" + reward +
+                '}';
+    }
 }
