@@ -10,8 +10,6 @@ import com.kaizen.mapper.KaizenMapper;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.infoToKaizen.KaizenMailService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +54,7 @@ public class KaizenController {
     }
 
     @GetMapping(value = "/translate/{kaizenId}")
-    public ResponseEntity<String> translateKaizenById(@PathVariable int kaizenId) throws KaizenNotFoundException {
+    public ResponseEntity<String> translateKaizenById(@PathVariable int kaizenId) {
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         String problem = kaizen.getProblem();
         String translatedProblem = translator.doTranslate(problem);
@@ -81,15 +79,15 @@ public class KaizenController {
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDto(savedKaizen));
     }
 
-    @PutMapping(value = "markAsCompleted/{kaizendId}")
-    public ResponseEntity<KaizenDto> markAsCompleted(@PathVariable int kaizendId, @RequestParam("completionDate") LocalDate completionDate) throws KaizenNotFoundException {
-        Kaizen kaizen = kaizenDbService.getKaizen(kaizendId);
-        if (kaizen.isCompleted()) {
-            kaizen.setCompleted(true);
-            kaizen.setCompletionDate(completionDate);
-        }
+    @PutMapping(value = "markAsCompleted/{kaizenId}")
+    public ResponseEntity<KaizenDto> markAsCompleted(@PathVariable int kaizenId, @RequestParam("completionDate") LocalDate completionDate) throws KaizenNotFoundException {
+        Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
+
+        kaizen.setCompleted(true);
+        kaizen.setCompletionDate(completionDate);
+
         Kaizen savedKaizen = kaizenDbService.saveKaizen(kaizen);
-        watcher.logCompletingKaizen(kaizendId);
+        watcher.logCompletingKaizen(kaizenId);
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDto(savedKaizen));
     }
 

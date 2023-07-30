@@ -1,34 +1,31 @@
 package com.kaizen.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kaizen.aop.Watcher;
 import com.kaizen.api.Translator;
 import com.kaizen.domain.Kaizen;
-import com.kaizen.domain.Reward;
-import com.kaizen.domain.User;
 import com.kaizen.domain.dto.KaizenDto;
+import com.kaizen.domain.dto.UserDto;
 import com.kaizen.mapper.KaizenMapper;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.infoToKaizen.KaizenMailService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
 @SpringJUnitWebConfig
@@ -91,13 +88,13 @@ class KaizenControllerTest {
     @Test
     void getKaizensOlderThen() throws Exception {
         // Given
-        LocalDate date = LocalDate.of(2023,05,05);
+        LocalDate date = LocalDate.of(2023, 5, 5);
         KaizenDto kaizen1 = new KaizenDto();
         KaizenDto kaizen2 = new KaizenDto();
         kaizen1.setKaizenId(11011);
         kaizen2.setKaizenId(11012);
-        kaizen1.setFillingDate(LocalDate.of(2023,03,04));
-        kaizen2.setFillingDate(LocalDate.of(2023,03,04));
+        kaizen1.setFillingDate(LocalDate.of(2023, 3, 4));
+        kaizen2.setFillingDate(LocalDate.of(2023, 3, 4));
         List<KaizenDto> kaizenList = List.of(kaizen1, kaizen2);
 
         // When & Then
@@ -114,30 +111,131 @@ class KaizenControllerTest {
     }
 
     @Test
-    void getKaizensCreatedBy() {
-        //When
+    void getKaizensCreatedBy() throws Exception {
+        //Given
+        UserDto user = new UserDto();
+        user.setUserId(222);
+        user.setName("Name");
+        user.setLastname("Lastname");
+
+        KaizenDto kaizen = new KaizenDto();
+        kaizen.setKaizenId(11011);
+        kaizen.setUserId(222);
+
+        //When&Then
+        when(kaizenMapper.mapToKaizenDtoList(new ArrayList<>())).thenReturn(List.of(kaizen));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/v1/kaizens/creator")
+                        .param("name", "Name")
+                        .param("lastname", "Lastname")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].kaizenId", Matchers.is(11011)));
+    }
+
+    @Test
+    void translateKaizenById() throws Exception {
+        //Given
+        String problem = "Problem do testowania";
+        String translation = "Problem for testing";
+        KaizenDto kaizen = new KaizenDto();
+        kaizen.setKaizenId(11011);
+        kaizen.setProblem(problem);
+
+        Kaizen kaizen1 = new Kaizen();
+        kaizen1.setKaizenId(11011);
+        kaizen1.setProblem(problem);
+
+
+        //When&Then
+        when(kaizenDbService.getKaizen(11011)).thenReturn(kaizen1);
+        when(translator.doTranslate(problem)).thenReturn(translation);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/v1/kaizens/translate/{kaizenId}", 11011)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.content().string(translation));
+    }
+
+    @Test
+    void createKaizen() throws Exception {
+        //Given
         KaizenDto kaizenDto = new KaizenDto();
+        kaizenDto.setKaizenId(11011);
 
+        Kaizen kaizen = new Kaizen();
+        kaizen.setKaizenId(11011);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String kaizenDtoJson = objectMapper.writeValueAsString(kaizenDto);
+
+        //When&Then
+        when(kaizenMapper.mapToKaizen(kaizenDto)).thenReturn(kaizen);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/v1/kaizens")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(kaizenDtoJson))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        verify(kaizenDbService, times(1)).saveKaizen(kaizen);
     }
 
     @Test
-    void translateKaizenById() {
+    void updateKaizen() throws Exception {
+        //Given
+        KaizenDto kaizenDto = new KaizenDto();
+        Kaizen kaizen = new Kaizen();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String kaizenDtoJson = objectMapper.writeValueAsString(kaizenDto);
+
+        //When&Then
+        when(kaizenMapper.mapToKaizen(kaizenDto)).thenReturn(kaizen);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/v1/kaizens")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(kaizenDtoJson))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void createKaizen() {
+    void markAsCompleted() throws Exception {
+        //Given
+        KaizenDto kaizenDto = new KaizenDto();
+        kaizenDto.setKaizenId(11011);
+        kaizenDto.setCompleted(false);
+
+        Kaizen kaizen = new Kaizen();
+
+        //When&Then
+        when(kaizenMapper.mapToKaizen(kaizenDto)).thenReturn(kaizen);
+        when(kaizenDbService.getKaizen(11011)).thenReturn(kaizen);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/v1/kaizens/markAsCompleted/{kaizenId}", 11011)
+                        .queryParam("completionDate", LocalDate.now().toString())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void updateKaizen() {
-    }
+    void deleteKaizen() throws Exception {
+        //Given
+        int kaizenId = 11011;
 
-    @Test
-    void markAsCompleted() {
-    }
+        //When&Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/v1/kaizens/{kaizenId}", kaizenId))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
-    @Test
-    void deleteKaizen() {
+        verify(kaizenDbService, times(1)).deleteKaizenById(kaizenId);
     }
 }

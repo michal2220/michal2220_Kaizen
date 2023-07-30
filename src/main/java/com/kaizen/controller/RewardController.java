@@ -6,11 +6,8 @@ import com.kaizen.domain.dto.RewardDto;
 import com.kaizen.mapper.RewardMapper;
 import com.kaizen.service.dbService.RewardDbService;
 import lombok.RequiredArgsConstructor;
-import org.atmosphere.config.service.Post;
-import org.atmosphere.config.service.Put;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

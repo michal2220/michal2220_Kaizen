@@ -21,4 +21,7 @@ public class UserDto {
         this.brigade = brigade;
         this.kaizenList = kaizenList;
     }
+
+    public UserDto() {
+    }
 }
