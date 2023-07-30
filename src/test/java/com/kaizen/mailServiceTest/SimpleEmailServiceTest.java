@@ -1,5 +1,7 @@
-package com.kaizen.mailService;
+package com.kaizen.mailServiceTest;
 
+import com.kaizen.mailService.Mail;
+import com.kaizen.mailService.SimpleEmailService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

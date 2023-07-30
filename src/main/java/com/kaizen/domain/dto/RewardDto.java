@@ -20,4 +20,7 @@ public class RewardDto {
         this.price = price;
         this.kaizenId = kaizenId;
     }
+
+    public RewardDto() {
+    }
 }

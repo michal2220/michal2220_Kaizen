@@ -1,8 +1,9 @@
-package com.kaizen.controller;
+package com.kaizen.controllerTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kaizen.aop.Watcher;
 import com.kaizen.api.Translator;
+import com.kaizen.controller.KaizenController;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.domain.dto.UserDto;
@@ -50,7 +51,7 @@ class KaizenControllerTest {
     private Watcher watcher;
 
     @Test
-    void getRewardById() throws Exception {
+    void getKaizenById() throws Exception {
         //Given
         KaizenDto forDtoKaizen = new KaizenDto();
         int kaizenId = 11011;

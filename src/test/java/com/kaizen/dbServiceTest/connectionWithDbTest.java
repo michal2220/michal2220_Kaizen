@@ -1,4 +1,4 @@
-package com.kaizen;
+package com.kaizen.dbServiceTest;
 
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;

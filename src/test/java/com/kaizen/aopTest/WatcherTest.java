@@ -1,5 +1,6 @@
-package com.kaizen.aop;
+package com.kaizen.aopTest;
 
+import com.kaizen.aop.Watcher;
 import com.kaizen.domain.EventLog;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;

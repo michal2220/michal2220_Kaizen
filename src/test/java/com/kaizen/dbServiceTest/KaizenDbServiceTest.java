@@ -1,7 +1,8 @@
-package com.kaizen.service.dbService;
+package com.kaizen.dbServiceTest;
 
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.User;
+import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.repository.KaizenRepository;
 import com.kaizen.service.repository.UserRepository;
 import org.junit.jupiter.api.Test;

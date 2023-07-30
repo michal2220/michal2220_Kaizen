@@ -31,7 +31,7 @@ public class KaizenController {
     private final Watcher watcher;
 
     @GetMapping(value = "/kaizenId/{kaizenId}")
-    public ResponseEntity<KaizenDto> getRewardById(@PathVariable int kaizenId) throws KaizenNotFoundException {
+    public ResponseEntity<KaizenDto> getKaizenById(@PathVariable int kaizenId) throws KaizenNotFoundException {
         return ResponseEntity.ok(kaizenMapper.mapToKaizenDto(kaizenDbService.getKaizen(kaizenId)));
     }
 
