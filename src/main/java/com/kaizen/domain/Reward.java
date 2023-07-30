@@ -56,4 +56,14 @@ public class Reward {
         this.name = name;
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Reward{" +
+                "rewardId=" + rewardId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", kaizen=" + kaizen +
+                '}';
+    }
 }
