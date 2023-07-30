@@ -76,6 +76,17 @@ public class User {
         this.lastname = lastname;
         this.brigade = brigade;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", brigade=" + brigade +
+                ", kaizen=" + kaizen +
+                '}';
+    }
 }
 
 
