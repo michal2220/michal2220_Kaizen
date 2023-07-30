@@ -143,7 +143,7 @@ public class connectionWithDbTest {
     }
 
 /*
-        This needs to be commented as I'm using this to complexity clean database
+        This needs to be commented as I'm using this to completely clean database
 
         @Test
         public void cleanAllTablesTest() {
