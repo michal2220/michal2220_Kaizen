@@ -23,7 +23,6 @@ public class UserController {
     private final UserDbService userDbService;
     private final UserMapper userMapper;
     private final Watcher watcher;
-    int userToWatcher;
 
     @GetMapping("/userId/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable int userId) throws UserNotFoundException {
