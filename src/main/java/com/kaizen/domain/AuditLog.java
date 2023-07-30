@@ -1,6 +1,5 @@
 package com.kaizen.domain;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,11 +15,11 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EventLog {
+public class AuditLog {
 
     @Id
     @GeneratedValue
-    private int eventId;
+    private int id;
 
     @Column
     private LocalDate eventDate;
@@ -31,7 +30,7 @@ public class EventLog {
     @Column(length = 1000)
     private String eventDescription;
 
-    public EventLog(LocalDate eventDate, LocalTime eventTime, String eventDescription) {
+    public AuditLog(LocalDate eventDate, LocalTime eventTime, String eventDescription) {
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.eventDescription = eventDescription;
