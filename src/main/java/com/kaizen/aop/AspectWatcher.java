@@ -123,5 +123,4 @@ public class AspectWatcher {
                 LocalTime.now(),
                 "Deleting reward with name: " + rewardId));
     }
-
 }

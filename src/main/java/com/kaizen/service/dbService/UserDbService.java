@@ -1,5 +1,6 @@
 package com.kaizen.service.dbService;
 
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.User;
 import com.kaizen.service.repository.UserRepository;
 import lombok.Data;
@@ -15,8 +16,8 @@ public class UserDbService {
 
     private final UserRepository userRepository;
 
-    public User getUser(final int userId) {
-        return userRepository.findByUserId(userId);
+    public User getUser(final int userId) throws UserNotFoundException {
+        return userRepository.findByUserId(userId).orElseThrow(UserNotFoundException::new);
     }
 
     public List<User> getAllUsers() {

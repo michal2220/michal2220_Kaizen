@@ -1,6 +1,7 @@
 package com.kaizen.mapper;
 
 import com.kaizen.controller.exception.RewardNotFoundException;
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.dto.KaizenDto;
@@ -21,7 +22,7 @@ public class KaizenMapper {
     private final UserDbService userDbService;
     private final RewardDbService rewardDbService;
 
-    public KaizenDto mapToKaizenDto(final Kaizen kaizen) {
+    public KaizenDto mapToKaizenDto(final Kaizen kaizen){
         return new KaizenDto(
                 kaizen.getKaizenId(),
                 kaizen.getFillingDate(),
@@ -35,7 +36,7 @@ public class KaizenMapper {
         );
     }
 
-    public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws RewardNotFoundException {
+    public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws UserNotFoundException {
         try {
             return new Kaizen(
                     kaizenDto.getKaizenId(),
@@ -59,6 +60,8 @@ public class KaizenMapper {
                     kaizenDto.isRewarded(),
                     userDbService.getUser(kaizenDto.getUserId())
             );
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }

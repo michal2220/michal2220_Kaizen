@@ -3,9 +3,6 @@ package com.kaizen.api.client;
 import com.kaizen.api.translationInput.InputToClient;
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class TranslatorClient {
-
     @Value("${api.translator.endpoint.url}")
     private String translatorApiEndpoint;
-
     @Value("${api.translator.endpoint.key}")
     private String apiKey;
-
     @Value("${api.translator.endpoint.host}")
     private String apiHost;
     private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorClient.class);
@@ -49,7 +43,7 @@ public class TranslatorClient {
             translatedInput = response.body().string();
 
         } catch (Exception e) {
-
+            LOGGER.error("Translation could not happen due to error: " + e);
         }
         return translatedInput;
     }

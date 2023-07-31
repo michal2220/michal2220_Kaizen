@@ -4,6 +4,7 @@ import com.kaizen.aop.Watcher;
 import com.kaizen.api.Translator;
 import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.controller.exception.RewardNotFoundException;
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.dto.KaizenDto;
 import com.kaizen.mapper.KaizenMapper;
@@ -63,7 +64,7 @@ public class KaizenController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException {
+    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws UserNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());
@@ -72,7 +73,7 @@ public class KaizenController {
     }
 
     @PutMapping
-    public ResponseEntity<KaizenDto> updateKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException {
+    public ResponseEntity<KaizenDto> updateKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException, UserNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         Kaizen savedKaizen = kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());

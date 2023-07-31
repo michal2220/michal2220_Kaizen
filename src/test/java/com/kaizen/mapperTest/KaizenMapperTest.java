@@ -1,6 +1,8 @@
 package com.kaizen.mapperTest;
 
+import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.controller.exception.RewardNotFoundException;
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.User;
@@ -22,7 +24,7 @@ class KaizenMapperTest {
     private KaizenMapper kaizenMapper;
 
     @Test
-    void mapToKaizenDto() {
+    void mapToKaizenDto() throws KaizenNotFoundException {
         //Given
         Kaizen kaizen = new Kaizen();
         kaizen.setUser(new User());
@@ -39,7 +41,7 @@ class KaizenMapperTest {
     }
 
     @Test
-    void mapToKaizen() throws RewardNotFoundException {
+    void mapToKaizen() throws RewardNotFoundException, UserNotFoundException {
         //Given
         KaizenDto kaizenDto = new KaizenDto();
         Kaizen expectedKaizen = new Kaizen();

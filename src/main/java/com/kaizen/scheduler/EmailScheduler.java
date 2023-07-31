@@ -1,6 +1,7 @@
 package com.kaizen.scheduler;
 
 import com.kaizen.api.DadJoke;
+import com.kaizen.api.Translator;
 import com.kaizen.mailService.Mail;
 import com.kaizen.mailService.SimpleEmailService;
 import com.kaizen.service.repository.KaizenRepository;
@@ -15,11 +16,13 @@ public class EmailScheduler {
     private final KaizenRepository kaizenRepository;
     private final SimpleEmailService simpleEmailService;
     private final DadJoke dadJoke;
+    private final Translator translator;
 
     private static final String SUBJECT = "Weekly kaizen report";
 
     @Scheduled(cron = "0 0 0 ? * MON")
     public void sendKaizenStatusMail() {
+        String joke = dadJoke.getJoke();
 
         simpleEmailService.send(
                 new Mail(
@@ -27,13 +30,17 @@ public class EmailScheduler {
                         SUBJECT,
                         "Currently there are " +
                                 kaizenRepository.findKaizenByCompleted(false).size()
-                        + " unfinished ideas" + """
-                                
-                                
-                                
-                             
-                             Joke for today:   
-                                """+dadJoke.getJoke()
+                                + " unfinished ideas" + """
+                                   
+                                   
+                                   
+                                                             
+                                Joke for today:   
+                                   """ + joke + """
+                                                                
+                                                                
+                                Po Polsku:                      
+                                """ + translator.doTranslate(joke)
                 )
         );
     }

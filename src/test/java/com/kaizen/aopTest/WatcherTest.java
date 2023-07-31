@@ -1,6 +1,7 @@
 package com.kaizen.aopTest;
 
 import com.kaizen.aop.Watcher;
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.EventLog;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
@@ -32,7 +33,7 @@ class WatcherTest {
     private Watcher watcher;
 
     @Test
-    void logSavingUser() {
+    void logSavingUser() throws UserNotFoundException {
         //Given
         User user = new User("a","a",1);
         userDbService.saveUser(user);
@@ -53,7 +54,7 @@ class WatcherTest {
     }
 
     @Test
-    void logDeleteUser() {
+    void logDeleteUser() throws UserNotFoundException {
         //Given
         User user = new User("a","a",1);
         userDbService.saveUser(user);

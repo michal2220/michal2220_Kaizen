@@ -4,15 +4,18 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class DadJokesClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DadJokesClient.class);
+
     public String jokeALittleBit() {
         String joke = "";
-
         try {
 
             OkHttpClient client = new OkHttpClient();
@@ -28,7 +31,7 @@ public class DadJokesClient {
 
             joke = response.body().string();
         } catch (Exception e) {
-
+            LOGGER.error("DadJoke could not be generated due to error: " + e);
         }
         return joke;
     }

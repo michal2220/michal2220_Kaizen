@@ -13,17 +13,12 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
 public class ApiTest {
-
-    @Autowired
-    private TranslatorClient translatorClient;
-
     @Autowired
     private Translator translator;
 
     @Autowired
     private DadJoke dadJoke;
 
-    //commented as only 500 uses of API is for free
 /*    @Test
     public void doTranslateTest() {
         //Given
@@ -46,6 +41,4 @@ public class ApiTest {
         //Then
         assertNotNull(test);
     }
-
-
 }

@@ -1,16 +1,14 @@
 package com.kaizen.aop;
 
+import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.EventLog;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.service.dbService.KaizenDbService;
 import com.kaizen.service.dbService.UserDbService;
 import com.kaizen.service.repository.EventLogRepository;
-import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -21,11 +19,8 @@ import java.time.LocalTime;
 public class Watcher {
 
     private final EventLogRepository eventLogRepository;
-
     private final UserDbService userDbService;
-
     private final KaizenDbService kaizenDbService;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Watcher.class);
 
     public Watcher(EventLogRepository eventLogRepository, UserDbService userDbService, KaizenDbService kaizenDbService) {
@@ -44,7 +39,7 @@ public class Watcher {
         eventLogRepository.save(event);
     }
 
-    public void logSavingUser(int userId) {
+    public void logSavingUser(int userId) throws UserNotFoundException {
 
         UserEventDescriptionBuilder userEventDescriptionBuilder1 = buildBasicUserDescription(userId);
         String eventString = "CREATED: " + userEventDescriptionBuilder1;
@@ -60,7 +55,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logDeleteUser(int userId) {
+    public void logDeleteUser(int userId) throws UserNotFoundException {
 
         UserEventDescriptionBuilder userEventDescriptionBuilder1 = buildBasicUserDescription(userId);
         String eventString = "DELETED: " + userEventDescriptionBuilder1;
@@ -122,7 +117,7 @@ public class Watcher {
                 .build();
     }
 
-    public UserEventDescriptionBuilder buildBasicUserDescription(int userId) {
+    public UserEventDescriptionBuilder buildBasicUserDescription(int userId) throws UserNotFoundException {
         return new UserEventDescriptionBuilder.Builder()
                 .eventId(userDbService.getUser(userId).getUserId())
                 .userName(userDbService.getUser(userId).getName())

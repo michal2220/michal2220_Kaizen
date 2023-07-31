@@ -7,12 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-    User findByUserId(int userId);
+    Optional<User> findByUserId(int userId);
 
     List<User> findAll();
 

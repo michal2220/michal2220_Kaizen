@@ -20,11 +20,11 @@ import java.util.List;
 public class RewardDbService {
     private final RewardRepository rewardRepository;
 
-    public Reward getReward(final int rewardId) throws RewardNotFoundException {
+    public Reward getReward(final int rewardId) {
         return rewardRepository.findByRewardId(rewardId);
     }
 
-    public List<Reward> rewardListByPrice(final int price) throws RewardNotFoundException {
+    public List<Reward> rewardListByPrice(final int price) {
         return rewardRepository.findByPrice(price);
     }
 
@@ -40,15 +40,15 @@ public class RewardDbService {
         rewardRepository.deleteByRewardId(rewardId);
     }
 
-    public List<Reward> getRewardsMoreExpensiveThen(final int price) throws RewardNotFoundException {
+    public List<Reward> getRewardsMoreExpensiveThen(final int price) {
         return rewardRepository.getRewardsMoreExpensiveThan(price);
     }
 
-    public List<Reward> getRewardsLessExpensiveThen(final int price) throws RewardNotFoundException {
+    public List<Reward> getRewardsLessExpensiveThen(final int price) {
         return rewardRepository.getRewardsLessExpensiveThan(price);
     }
 
-    public List<Reward> getRewardsByName (final String name) throws RewardNotFoundException {
+    public List<Reward> getRewardsByName (final String name) {
         return rewardRepository.findByNameContaining(name);
     }
 

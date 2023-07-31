@@ -1,7 +1,6 @@
 package com.kaizen.api;
 
 import com.kaizen.api.client.DadJokesClient;
-import com.kaizen.api.client.TranslatorClient;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;

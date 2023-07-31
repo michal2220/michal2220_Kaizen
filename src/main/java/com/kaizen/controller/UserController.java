@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) throws UserNotFoundException {
         User user = userMapper.mapToUser(userDto);
         userDbService.saveUser(user);
         watcher.logSavingUser(user.getUserId());
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
         User user = userMapper.mapToUser(userDto);
         User savedUser = userDbService.saveUser(user);
         watcher.logSavingUser(user.getUserId());
@@ -82,7 +82,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable int userId) throws UserNotFoundException {
         watcher.logDeleteUser(userId);
         userDbService.deleteUserById(userId);
         return ResponseEntity.ok().build();
