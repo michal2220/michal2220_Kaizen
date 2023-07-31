@@ -24,7 +24,7 @@ Reward Management: Rewards can be created, updated, and deleted through the appl
 
 Translation Functionality: The system offers the capability to translate kaizen problem descriptions into different languages using an external translator component.
 
-Scheduler: Application contains built in scheduler which sends reminder emails every Monday. Email contains info regarding uncompleted ammount of Kaizen. It also sends a Dad Joker to brighten up Mondays. Jokes are also translated to Polish language via built in translator.
+Scheduler: Application contains built in scheduler which sends reminder emails every Monday. Email contains info regarding uncompleted amount of Kaizens. It also sends a Dad Joke to brighten up Mondays :) Jokes are also translated to Polish language via built in translator.
 
 Logging and Auditing: AspectJ is utilized to implement logging and auditing functionalities, which record relevant events and actions performed in the system. This ensures traceability and enhances security.
 
