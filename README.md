@@ -103,3 +103,9 @@ To run the Kaizen Management System application, it is required to set up a MySQ
    ```
    kodilla_password
    ```
+Port for using this app is: 8080 on localhost, for example url:
+
+   ```
+   http://localhost:8080/v1/users
+   ```
+will show a list of all available Users.
