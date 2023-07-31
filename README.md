@@ -1,6 +1,5 @@
-# michal2220_Kaizen
-
 Kaizen Management System - Backend
+
 
 The Kaizen Management System is a comprehensive web application designed to facilitate continuous improvement within organizations. This backend component is built using Java and the Spring Boot framework, providing a robust and efficient foundation for managing user feedback and improvement suggestions, also known as kaizens, as well as the rewarding process.
 
