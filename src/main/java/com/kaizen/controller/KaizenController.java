@@ -55,7 +55,7 @@ public class KaizenController {
     }
 
     @GetMapping(value = "/translate/{kaizenId}")
-    public ResponseEntity<String> translateKaizenById(@PathVariable int kaizenId) {
+    public ResponseEntity<String> translateKaizenById(@PathVariable int kaizenId) throws KaizenNotFoundException {
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         String problem = kaizen.getProblem();
         String translatedProblem = translator.doTranslate(problem);
@@ -64,7 +64,7 @@ public class KaizenController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws UserNotFoundException {
+    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws UserNotFoundException, KaizenNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());
@@ -73,7 +73,7 @@ public class KaizenController {
     }
 
     @PutMapping
-    public ResponseEntity<KaizenDto> updateKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException, UserNotFoundException {
+    public ResponseEntity<KaizenDto> updateKaizen(@RequestBody KaizenDto kaizenDto) throws RewardNotFoundException, UserNotFoundException, KaizenNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         Kaizen savedKaizen = kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());
@@ -93,7 +93,7 @@ public class KaizenController {
     }
 
     @DeleteMapping(value = "{kaizenId}")
-    public ResponseEntity<Void> deleteKaizen(@PathVariable int kaizenId) {
+    public ResponseEntity<Void> deleteKaizen(@PathVariable int kaizenId) throws KaizenNotFoundException {
         watcher.logDeletingKaizen(kaizenId);
         kaizenDbService.deleteKaizenById(kaizenId);
         return ResponseEntity.ok().build();

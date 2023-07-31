@@ -1,5 +1,6 @@
 package com.kaizen.aop;
 
+import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.EventLog;
 import com.kaizen.domain.Kaizen;
@@ -47,7 +48,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logCreatingKaizen(int kaizenId) {
+    public void logCreatingKaizen(int kaizenId) throws KaizenNotFoundException {
         LOGGER.info("IN WATCHER: " + kaizenId);
         KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
         String eventString = "CREATED: " + kaizenEventDescriptionBuilder;
@@ -63,7 +64,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logDeletingKaizen(int kaizenId) {
+    public void logDeletingKaizen(int kaizenId) throws KaizenNotFoundException {
 
         KaizenEventDescriptionBuilder kaizenEventDescriptionBuilder = buildBasicKaizenDescription(kaizenId);
         String eventString = "DELETED: " + kaizenEventDescriptionBuilder;
@@ -71,7 +72,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logCompletingKaizen(int kaizenId) {
+    public void logCompletingKaizen(int kaizenId) throws KaizenNotFoundException {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
 
@@ -82,7 +83,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    public void logTranslation(int kaizenId, String translation) {
+    public void logTranslation(int kaizenId, String translation) throws KaizenNotFoundException {
 
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
 
@@ -97,7 +98,7 @@ public class Watcher {
         saveToLogDatabase(eventString);
     }
 
-    private KaizenEventDescriptionBuilder buildBasicKaizenDescription(int kaizenId) {
+    private KaizenEventDescriptionBuilder buildBasicKaizenDescription(int kaizenId) throws KaizenNotFoundException {
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         return new KaizenEventDescriptionBuilder.Builder()
                 .eventId(kaizen.getKaizenId())
@@ -109,7 +110,7 @@ public class Watcher {
                 .build();
     }
 
-    private KaizenEventDescriptionBuilder buildKaizenStatusChange(int kaizenId) {
+    private KaizenEventDescriptionBuilder buildKaizenStatusChange(int kaizenId) throws KaizenNotFoundException {
         Kaizen kaizen = kaizenDbService.getKaizen(kaizenId);
         return new KaizenEventDescriptionBuilder.Builder()
                 .eventId(kaizen.getKaizenId())

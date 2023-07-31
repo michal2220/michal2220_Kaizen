@@ -1,6 +1,7 @@
 package com.kaizen.aopTest;
 
 import com.kaizen.aop.Watcher;
+import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.controller.exception.UserNotFoundException;
 import com.kaizen.domain.EventLog;
 import com.kaizen.domain.Kaizen;
@@ -75,7 +76,7 @@ class WatcherTest {
     }
 
     @Test
-    void logCreatingKaizen() {
+    void logCreatingKaizen() throws KaizenNotFoundException {
         //Given
         Kaizen kaizen = new Kaizen(LocalDate.now(),false,"test", "test", false);
         kaizenDbService.saveKaizen(kaizen);
@@ -96,7 +97,7 @@ class WatcherTest {
     }
 
     @Test
-    void logDeletingKaizen() {
+    void logDeletingKaizen() throws KaizenNotFoundException {
         //Given
         Kaizen kaizen = new Kaizen(LocalDate.now(),false,"test", "test", false);
         kaizenDbService.saveKaizen(kaizen);
@@ -117,7 +118,7 @@ class WatcherTest {
     }
 
     @Test
-    void logCompletingKaizen() {
+    void logCompletingKaizen() throws KaizenNotFoundException {
         Kaizen kaizen = new Kaizen(LocalDate.now(),false,"test", "test", false);
         kaizen.setReward(new Reward("testName", 100));
 
@@ -140,7 +141,7 @@ class WatcherTest {
     }
 
     @Test
-    void logTranslation() {
+    void logTranslation() throws KaizenNotFoundException {
         //Given
         Kaizen kaizen = new Kaizen(LocalDate.now(),false,"test", "test", false);
         kaizenDbService.saveKaizen(kaizen);

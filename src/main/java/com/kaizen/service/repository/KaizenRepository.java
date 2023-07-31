@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Repository
 public interface KaizenRepository extends CrudRepository<Kaizen, Integer> {
 
-    Kaizen findByKaizenId(int kaizenId);
+    Optional<Kaizen> findByKaizenId(int kaizenId);
 
     List<Kaizen> findAll();
 

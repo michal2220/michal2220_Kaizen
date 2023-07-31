@@ -1,5 +1,6 @@
 package com.kaizen.service.dbService;
 
+import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.User;
@@ -17,8 +18,8 @@ import java.util.List;
 public class KaizenDbService {
     private final KaizenRepository kaizenRepository;
 
-    public Kaizen getKaizen(final int kaizenId) {
-        return kaizenRepository.findByKaizenId(kaizenId);
+    public Kaizen getKaizen(final int kaizenId) throws KaizenNotFoundException {
+        return kaizenRepository.findByKaizenId(kaizenId).orElseThrow(KaizenNotFoundException::new);
     }
 
     public List<Kaizen> getAllKaizens() {
