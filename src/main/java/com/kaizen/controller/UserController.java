@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/kaizenQuantity/{kaizenCount}")
-    public ResponseEntity<List<UserDto>> getUsersByKaizenQuantity(@PathVariable int kaizenCount) {
+    public ResponseEntity<List<UserDto>> getUsersByKaizenQuantity(@PathVariable int kaizenCount) throws UserNotFoundException {
         List<User> users = userDbService.getUsersWithKaizenQuantity(kaizenCount);
         return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
     }
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/moreThen/{kaizenCount}")
-    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityMoreThen(@PathVariable int kaizenCount) {
+    public ResponseEntity<List<UserDto>> getUsersKaizenQuantityMoreThen(@PathVariable int kaizenCount) throws UserNotFoundException {
         List<User> users = userDbService.getUsersWithMoreThenKaizenQuantity(kaizenCount);
         return ResponseEntity.ok(userMapper.mapToUserDtosList(users));
     }

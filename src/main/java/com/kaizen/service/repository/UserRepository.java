@@ -18,10 +18,10 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findAll();
 
     @Query
-    List<User> findUsersByIdeaCount(final int kaizenCount);
+    Optional<List<User>> findUsersByIdeaCount(final int kaizenCount);
 
     @Query
-    List<User> findUsersByKaizenCountGreaterThan(final int kaizenCount);
+    Optional<List<User>> findUsersByKaizenCountGreaterThan(final int kaizenCount);
 
     List<User> findUsersByKaizenCountLessThan(final int kaizenCount);
 
@@ -30,5 +30,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     void deleteByUserId(final int userId);
 
     @Query
-    List<User> findUsersByLastname(String lastname);
+    Optional<List<User>> findUsersByLastname(String lastname);
 }

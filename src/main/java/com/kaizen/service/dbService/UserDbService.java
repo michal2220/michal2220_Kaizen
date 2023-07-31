@@ -24,16 +24,16 @@ public class UserDbService {
         return userRepository.findAll();
     }
 
-    public List<User> getUsersWithKaizenQuantity(final int kaizenCount) {
-        return userRepository.findUsersByIdeaCount(kaizenCount);
+    public List<User> getUsersWithKaizenQuantity(final int kaizenCount) throws UserNotFoundException {
+        return userRepository.findUsersByIdeaCount(kaizenCount).orElseThrow(UserNotFoundException::new);
     }
 
     public List<User> getUsersWithLessThenKaizenQuantity(final int kaizenCount) {
         return userRepository.findUsersByKaizenCountLessThan(kaizenCount);
     }
 
-    public List<User> getUsersWithMoreThenKaizenQuantity(final int kaizenCount) {
-        return userRepository.findUsersByKaizenCountGreaterThan(kaizenCount);
+    public List<User> getUsersWithMoreThenKaizenQuantity(final int kaizenCount) throws UserNotFoundException {
+        return userRepository.findUsersByKaizenCountGreaterThan(kaizenCount).orElseThrow(UserNotFoundException::new);
     }
 
     public List<User> getUsersByBrigade(final int brigade) {
@@ -45,10 +45,10 @@ public class UserDbService {
     }
 
     public void deleteUserById(final int userId) {
-        userRepository.deleteById(userId);
+        userRepository.deleteByUserId(userId);
     }
 
-    public List<User> findByLastname(final String lastname) {
-        return userRepository.findUsersByLastname(lastname);
+    public List<User> findByLastname(final String lastname) throws UserNotFoundException {
+        return userRepository.findUsersByLastname(lastname).orElseThrow(UserNotFoundException::new);
     }
 }
