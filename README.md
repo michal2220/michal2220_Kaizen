@@ -43,42 +43,39 @@ With both the backend and frontend components seamlessly integrated, the Kaizen 
 
 Features:
 
-User Controller - API Endpoints
-GET /v1/users/userId/{userId}: Get user details by ID.
-GET /v1/users/userLastname/{lastname}: Get users by last name.
-GET /v1/users/kaizenQuantity/{kaizenCount}: Get users by kaizen count.
-GET /v1/users/lessThen/{kaizenCount}: Get users with less than a specific kaizen count.
-GET /v1/users/moreThen/{kaizenCount}: Get users with more than a specific kaizen count.
-GET /v1/users/brigade/{brigade}: Get users by brigade.
-GET /v1/users: Get all users.
-POST /v1/users: Create a new user.
-PUT /v1/users: Update an existing user.
-DELETE /v1/users/{userId}: Delete a user by ID.
+User Controller - API Endpoints:
+- GET /v1/users/userId/{userId}: Get user details by ID.
+- GET /v1/users/userLastname/{lastname}: Get users by last name.
+- GET /v1/users/kaizenQuantity/{kaizenCount}: Get users by kaizen count.
+- GET /v1/users/lessThen/{kaizenCount}: Get users with less than a specific kaizen count.
+- GET /v1/users/moreThen/{kaizenCount}: Get users with more than a specific kaizen count.
+- GET /v1/users/brigade/{brigade}: Get users by brigade.
+- GET /v1/users: Get all users.
+- POST /v1/users: Create a new user.
+- PUT /v1/users: Update an existing user.
+- DELETE /v1/users/{userId}: Delete a user by ID.
 
-Kaizen Controller - API Endpoints
-GET /v1/kaizens/kaizenId/{kaizenId}: Get kaizen details by ID.
-GET /v1/kaizens: Get all kaizens.
-GET /v1/kaizens/olderThen/{date}: Get kaizens older than a specific date.
-GET /v1/kaizens/creator?name={name}&lastname={lastname}: Get kaizens created by a specific user.
-GET /v1/kaizens/translate/{kaizenId}: Translate the problem description of a kaizen by ID.
-POST /v1/kaizens: Create a new kaizen.
-PUT /v1/kaizens: Update an existing kaizen.
-PUT /v1/kaizens/markAsCompleted/{kaizenId}: Mark a kaizen as completed with a specified completion date.
-DELETE /v1/kaizens/{kaizenId}: Delete a kaizen by ID.
-The Kaizen Controller provides endpoints to manage kaizen information in the Kaizen Management System. It allows users to create, update, retrieve, and delete kaizens. Additionally, it supports features like filtering kaizens by creator, translation of problem descriptions, and marking kaizens as completed with a specified date.
+Kaizen Controller - API Endpoints:
+- GET /v1/kaizens/kaizenId/{kaizenId}: Get kaizen details by ID.
+- GET /v1/kaizens: Get all kaizens.
+- GET /v1/kaizens/olderThen/{date}: Get kaizens older than a specific date.
+- GET /v1/kaizens/creator?name={name}&lastname={lastname}: Get kaizens created by a specific user.
+- GET /v1/kaizens/translate/{kaizenId}: Translate the problem description of a kaizen by ID.
+- POST /v1/kaizens: Create a new kaizen.
+- PUT /v1/kaizens: Update an existing kaizen.
+- PUT /v1/kaizens/markAsCompleted/{kaizenId}: Mark a kaizen as completed with a specified completion date.
+- DELETE /v1/kaizens/{kaizenId}: Delete a kaizen by ID.
 
-Reward Controller - API Endpoints
-GET /v1/rewards/rewardId/{rewardId}: Get reward details by ID.
-GET /v1/rewards/rewardName/{name}: Get rewards by name.
-GET /v1/rewards/rewardsPrice/{price}: Get rewards by price.
-GET /v1/rewards/moreExpensiveThen/{price}: Get rewards more expensive than a specified price.
-GET /v1/rewards/lessExpensiveThen/{price}: Get rewards less expensive than a specified price.
-GET /v1/rewards: Get all rewards.
-POST /v1/rewards: Create a new reward.
-PUT /v1/rewards: Update an existing reward.
-DELETE /v1/rewards/{rewardId}: Delete a reward by ID.
-The Reward Controller provides endpoints to manage reward information in the Reward Management System. It allows users to create, update, retrieve, and delete rewards. Additionally, it supports features like filtering rewards by name and price.
-
+Reward Controller - API Endpoints:
+- GET /v1/rewards/rewardId/{rewardId}: Get reward details by ID.
+- GET /v1/rewards/rewardName/{name}: Get rewards by name.
+- GET /v1/rewards/rewardsPrice/{price}: Get rewards by price.
+- GET /v1/rewards/moreExpensiveThen/{price}: Get rewards more expensive than a specified price.
+- GET /v1/rewards/lessExpensiveThen/{price}: Get rewards less expensive than a specified price.
+- GET /v1/rewards: Get all rewards.
+- POST /v1/rewards: Create a new reward.
+- PUT /v1/rewards: Update an existing reward.
+- DELETE /v1/rewards/{rewardId}: Delete a reward by ID.
 
 The application also incorporates Aspect-Oriented Programming (AOP) to log important events and actions within the system. The following events are logged:
 User-related events such as creating, updating, and deleting users.
