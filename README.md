@@ -3,6 +3,7 @@
 
 The Kaizen Management System is a comprehensive web application designed to facilitate continuous improvement within organizations. This backend component is built using Java and the Spring Boot framework, providing a robust and efficient foundation for managing user feedback and improvement suggestions, also known as kaizens, as well as the rewarding process.
 
+The application is built as a REST API, allowing clients to interact with the backend using HTTP methods to perform CRUD operations on resources.
 
 
 Technologies Used:
@@ -27,6 +28,10 @@ Scheduler: Application contains built in scheduler which sends reminder emails e
 
 Logging and Auditing: AspectJ is utilized to implement logging and auditing functionalities, which record relevant events and actions performed in the system. This ensures traceability and enhances security.
 
+The application utilizes two design patterns: the builder pattern and aspect-oriented programming. 
+
+
+
 Frontend:
 The frontend of the Kaizen Management System is built using Vaadin, a powerful Java framework for building modern web applications with ease. Vaadin allows for seamless integration between the frontend and backend, enabling a smooth and responsive user interface. The Vaadin-based frontend communicates with the backend API to provide users with an intuitive and user-friendly experience for managing kaizens, rewards, and user information.
 
@@ -34,8 +39,6 @@ The frontend repository for the Kaizen Management System can be found at the fol
 https://github.com/michal2220/michal2220_Kaizen_frontend
 
 With both the backend and frontend components seamlessly integrated, the Kaizen Management System offers organizations a powerful tool to streamline continuous improvement processes, promote employee engagement, and drive positive organizational change.
-
-
 
 
 
