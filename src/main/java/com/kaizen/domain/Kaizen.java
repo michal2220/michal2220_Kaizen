@@ -84,6 +84,16 @@ public class Kaizen {
         this.rewarded = rewarded;
     }
 
+    public Kaizen(int kaizenId, LocalDate fillingDate, boolean completed, LocalDate completionDate, String problem, String solution, boolean rewarded) {
+        this.kaizenId = kaizenId;
+        this.fillingDate = fillingDate;
+        this.completed = completed;
+        this.completionDate = completionDate;
+        this.problem = problem;
+        this.solution = solution;
+        this.rewarded = rewarded;
+    }
+
     @Override
     public String toString() {
         return "Kaizen{" +

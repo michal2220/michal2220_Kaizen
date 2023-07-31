@@ -57,8 +57,15 @@ public class KaizenMapper {
                     kaizenDto.isRewarded(),
                     userDbService.getUser(kaizenDto.getUserId())
             );
-        } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (UserNotFoundException ex) {
+            return new Kaizen(
+                    kaizenDto.getKaizenId(),
+                    kaizenDto.getFillingDate(),
+                    kaizenDto.isCompleted(),
+                    kaizenDto.getCompletionDate(),
+                    kaizenDto.getProblem(),
+                    kaizenDto.getSolution(),
+                    kaizenDto.isRewarded());
         }
 
     }
