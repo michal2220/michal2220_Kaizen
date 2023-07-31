@@ -1,4 +1,4 @@
-package com.kaizen;
+package com.kaizen.api;
 
 import com.kaizen.api.DadJoke;
 import com.kaizen.api.Translator;
@@ -19,7 +19,7 @@ public class ApiTest {
     @Autowired
     private DadJoke dadJoke;
 
-/*    @Test
+    @Test
     public void doTranslateTest() {
         //Given
         String input = "Zobaczymy czy działa";
@@ -30,7 +30,7 @@ public class ApiTest {
 
         //Then
         assertEquals("Test", "We'll see if it works", testTranslation);
-    }*/
+    }
 
 
     @Test
