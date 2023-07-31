@@ -1,7 +1,6 @@
 package com.kaizen.service.repository;
 
 import com.kaizen.domain.Reward;
-import com.kaizen.domain.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

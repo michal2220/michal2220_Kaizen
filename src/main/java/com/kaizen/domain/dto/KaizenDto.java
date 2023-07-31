@@ -1,7 +1,5 @@
 package com.kaizen.domain.dto;
 
-import com.kaizen.domain.Reward;
-import com.kaizen.domain.User;
 import lombok.Data;
 import lombok.Setter;
 

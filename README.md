@@ -4,6 +4,8 @@ Kaizen Management System - Backend
 
 The Kaizen Management System is a comprehensive web application designed to facilitate continuous improvement within organizations. This backend component is built using Java and the Spring Boot framework, providing a robust and efficient foundation for managing user feedback and improvement suggestions, also known as kaizens, as well as the rewarding process.
 
+
+
 Technologies Used:
 - Java: The backend is implemented using the Java programming language.
 - Spring Boot: The application utilizes the Spring Boot framework for rapid development and easier configuration.
@@ -21,6 +23,8 @@ Kaizen Management: Users can submit kaizens, which include problem descriptions 
 Reward Management: Rewards can be created, updated, and deleted through the application. Additionally, users can retrieve rewards based on their IDs or names and filter rewards by price range.
 
 Translation Functionality: The system offers the capability to translate kaizen problem descriptions into different languages using an external translator component.
+
+Scheduler: Application contains built in scheduler which sends reminder emails every Monday. Email contains info regarding uncompleted ammount of Kaizen. It also sends a Dad Joker to brighten up Mondays. Jokes are also translated to Polish language via built in translator.
 
 Logging and Auditing: AspectJ is utilized to implement logging and auditing functionalities, which record relevant events and actions performed in the system. This ensures traceability and enhances security.
 

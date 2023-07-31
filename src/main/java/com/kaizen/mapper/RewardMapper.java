@@ -4,9 +4,7 @@ import com.kaizen.domain.Kaizen;
 import com.kaizen.domain.Reward;
 import com.kaizen.domain.dto.RewardDto;
 import com.kaizen.service.dbService.KaizenDbService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

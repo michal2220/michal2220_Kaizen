@@ -2,8 +2,6 @@ package com.kaizen.service.dbService;
 
 import com.kaizen.controller.exception.KaizenNotFoundException;
 import com.kaizen.domain.Kaizen;
-import com.kaizen.domain.Reward;
-import com.kaizen.domain.User;
 import com.kaizen.service.repository.KaizenRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,5 @@
 package com.kaizen.domain.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;

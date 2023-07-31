@@ -26,24 +26,24 @@ public class RewardController {
     }
 
     @GetMapping(value = "/rewardName/{name}")
-    public ResponseEntity<List<RewardDto>> getRewardsByName(@PathVariable String name) throws RewardNotFoundException {
+    public ResponseEntity<List<RewardDto>> getRewardsByName(@PathVariable String name) {
         List<Reward> rewards = rewardDbService.getRewardsByName(name);
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
 
     @GetMapping(value = "/rewardsPrice/{price}")
-    public ResponseEntity<List<RewardDto>> getRewardsByPrice(@PathVariable int price) throws RewardNotFoundException {
+    public ResponseEntity<List<RewardDto>> getRewardsByPrice(@PathVariable int price) {
         List<Reward> rewards = rewardDbService.rewardListByPrice(price);
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
     @GetMapping(value = "/moreExpensiveThen/{price}")
-    public ResponseEntity<List<RewardDto>> getRewardsMoreExpensiveThen(@PathVariable int price) throws RewardNotFoundException {
+    public ResponseEntity<List<RewardDto>> getRewardsMoreExpensiveThen(@PathVariable int price) {
         List<Reward> rewards = rewardDbService.getRewardsMoreExpensiveThen(price);
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
 
     @GetMapping(value = "/lessExpensiveThen/{price}")
-    public ResponseEntity<List<RewardDto>> getRewardsMoreLessThen(@PathVariable int price) throws RewardNotFoundException {
+    public ResponseEntity<List<RewardDto>> getRewardsMoreLessThen(@PathVariable int price) {
         List<Reward> rewards = rewardDbService.getRewardsLessExpensiveThen(price);
         return ResponseEntity.ok(rewardMapper.mapToRewardDtoList(rewards));
     }
@@ -62,7 +62,7 @@ public class RewardController {
     }
 
     @PutMapping
-    public ResponseEntity<RewardDto> updateReward(@RequestBody RewardDto rewardDto) throws RewardNotFoundException {
+    public ResponseEntity<RewardDto> updateReward(@RequestBody RewardDto rewardDto) {
         Reward reward = rewardMapper.mapToReward(rewardDto);
         Reward savedReward = rewardDbService.saveReward(reward);
         return ResponseEntity.ok(rewardMapper.mapToRewardDto(savedReward));

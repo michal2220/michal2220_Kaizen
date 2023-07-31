@@ -3,10 +3,7 @@ package com.kaizen.service.dbService;
 
 import com.kaizen.controller.exception.RewardNotFoundException;
 import com.kaizen.domain.Reward;
-import com.kaizen.service.repository.KaizenRepository;
 import com.kaizen.service.repository.RewardRepository;
-import jakarta.persistence.NamedQuery;
-import jdk.jfr.Name;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
