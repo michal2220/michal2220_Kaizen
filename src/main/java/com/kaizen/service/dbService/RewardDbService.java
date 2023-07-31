@@ -20,8 +20,8 @@ import java.util.List;
 public class RewardDbService {
     private final RewardRepository rewardRepository;
 
-    public Reward getReward(final int rewardId) {
-        return rewardRepository.findByRewardId(rewardId);
+    public Reward getReward(final int rewardId) throws RewardNotFoundException {
+        return rewardRepository.findByRewardId(rewardId).orElseThrow(RewardNotFoundException::new);
     }
 
     public List<Reward> rewardListByPrice(final int price) {

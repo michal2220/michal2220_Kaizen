@@ -36,7 +36,7 @@ public class KaizenMapper {
         );
     }
 
-    public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws UserNotFoundException {
+    public Kaizen mapToKaizen(final KaizenDto kaizenDto) throws UserNotFoundException, RewardNotFoundException {
         try {
             return new Kaizen(
                     kaizenDto.getKaizenId(),

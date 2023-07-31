@@ -64,7 +64,7 @@ public class KaizenController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws UserNotFoundException, KaizenNotFoundException {
+    public ResponseEntity<Void> createKaizen(@RequestBody KaizenDto kaizenDto) throws UserNotFoundException, KaizenNotFoundException, RewardNotFoundException {
         Kaizen kaizen = kaizenMapper.mapToKaizen(kaizenDto);
         kaizenDbService.saveKaizen(kaizen);
         watcher.logCreatingKaizen(kaizen.getKaizenId());
